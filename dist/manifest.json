@@ -1,0 +1,22 @@
+{
+   "background": {
+      "persistent": false,
+      "scripts": [ "js/main.js" ]
+   },
+   "chrome_url_overrides": {
+      "newtab": "index.html"
+   },
+   "description": "Creative coding sketches",
+   "icons": {
+      "128": "static/img/icons/icon-128.png",
+      "16": "static/img/icons/icon-16.png",
+      "48": "static/img/icons/icon-48.png"
+   },
+   "incognito": "split",
+   "key": "",
+   "manifest_version": 2,
+   "name": "code doodles",
+   "permissions": [ "http://codedoodl.es" ],
+   "update_url": "https://clients2.google.com/service/update2/crx",
+   "version": "0.0.0.1"
+}
