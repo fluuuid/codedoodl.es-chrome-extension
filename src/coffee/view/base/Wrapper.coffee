@@ -18,8 +18,8 @@ class Wrapper extends AbstractView
 	constructor : ->
 
 		@views =
-			home    : classRef : HomeView,        route : @__NAMESPACE__().nav.sections.HOME,    view : null, type : @VIEW_TYPE_PAGE
-			example : classRef : ExamplePageView, route : @__NAMESPACE__().nav.sections.EXAMPLE, view : null, type : @VIEW_TYPE_PAGE
+			home    : classRef : HomeView,        route : @CD_CE().nav.sections.HOME,    view : null, type : @VIEW_TYPE_PAGE
+			example : classRef : ExamplePageView, route : @CD_CE().nav.sections.EXAMPLE, view : null, type : @VIEW_TYPE_PAGE
 
 		@createClasses()
 
@@ -52,13 +52,13 @@ class Wrapper extends AbstractView
 
 	init : =>
 
-		@__NAMESPACE__().appView.on 'start', @start
+		@CD_CE().appView.on 'start', @start
 
 		null
 
 	start : =>
 
-		@__NAMESPACE__().appView.off 'start', @start
+		@CD_CE().appView.off 'start', @start
 
 		@bindEvents()
 
@@ -66,8 +66,8 @@ class Wrapper extends AbstractView
 
 	bindEvents : =>
 
-		@__NAMESPACE__().nav.on Nav.EVENT_CHANGE_VIEW, @changeView
-		@__NAMESPACE__().nav.on Nav.EVENT_CHANGE_SUB_VIEW, @changeSubView
+		@CD_CE().nav.on Nav.EVENT_CHANGE_VIEW, @changeView
+		@CD_CE().nav.on Nav.EVENT_CHANGE_SUB_VIEW, @changeSubView
 
 		null
 

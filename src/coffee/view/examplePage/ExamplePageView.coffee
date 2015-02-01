@@ -7,7 +7,7 @@ class ExamplePageView extends AbstractViewPage
 	constructor : ->
 
 		@templateVars = 
-			desc : @__NAMESPACE__().locale.get "example_desc"
+			desc : @CD_CE().locale.get "example_desc"
 
 		###
 

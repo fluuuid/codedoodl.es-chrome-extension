@@ -95,7 +95,7 @@ class AppView extends AbstractView
 
         @trigger 'start'
 
-        @__NAMESPACE__().router.start()
+        @CD_CE().router.start()
 
         @preloader.hide()
         @updateMediaQueriesLog()
@@ -139,12 +139,12 @@ class AppView extends AbstractView
 
     navigateToUrl : ( href, e = null ) =>
 
-        route   = if href.match(@__NAMESPACE__().BASE_PATH) then href.split(@__NAMESPACE__().BASE_PATH)[1] else href
+        route   = if href.match(@CD_CE().BASE_PATH) then href.split(@CD_CE().BASE_PATH)[1] else href
         section = if route.indexOf('/') is 0 then route.split('/')[1] else route
 
-        if @__NAMESPACE__().nav.getSection section
+        if @CD_CE().nav.getSection section
             e?.preventDefault()
-            @__NAMESPACE__().router.navigateTo route
+            @CD_CE().router.navigateTo route
         else 
             @handleExternalLink href
 

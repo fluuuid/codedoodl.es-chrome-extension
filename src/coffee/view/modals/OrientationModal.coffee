@@ -22,7 +22,7 @@ class OrientationModal extends AbstractModal
 	hide : (stillLandscape=true) =>
 
 		@animateOut =>
-			@__NAMESPACE__().appView.remove @
+			@CD_CE().appView.remove @
 			if !stillLandscape then @cb?()
 
 		null
@@ -31,7 +31,7 @@ class OrientationModal extends AbstractModal
 
 		super
 
-		@__NAMESPACE__().appView[setting] 'updateDims', @onUpdateDims
+		@CD_CE().appView[setting] 'updateDims', @onUpdateDims
 		@$el[setting] 'touchend click', @hide
 
 		null

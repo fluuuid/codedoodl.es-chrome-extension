@@ -7,7 +7,7 @@ class Footer extends AbstractView
     constructor: ->
 
         @templateVars = 
-        	desc : @__NAMESPACE__().locale.get "footer_desc"
+        	desc : @CD_CE().locale.get "footer_desc"
 
         super()
 
