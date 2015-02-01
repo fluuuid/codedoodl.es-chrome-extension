@@ -38,19 +38,24 @@ class AppView extends AbstractView
 
         super()
 
+        return null
+
     disableTouch: =>
 
         @$window.on 'touchmove', @onTouchMove
+
         return
 
     enableTouch: =>
 
         @$window.off 'touchmove', @onTouchMove
+
         return
 
     onTouchMove: ( e ) ->
 
         e.preventDefault()
+
         return
 
     render : =>
@@ -70,6 +75,7 @@ class AppView extends AbstractView
             .addChild @footer
 
         @onAllRendered()
+
         return
 
     bindEvents : =>
@@ -80,6 +86,7 @@ class AppView extends AbstractView
 
         @onResize = _.debounce @onResize, 300
         @$window.on 'resize orientationchange', @onResize
+
         return
 
     onAllRendered : =>
@@ -89,6 +96,7 @@ class AppView extends AbstractView
         @$body.prepend @$el
 
         @begin()
+
         return
 
     begin : =>
@@ -98,18 +106,13 @@ class AppView extends AbstractView
         @CD_CE().router.start()
 
         @preloader.hide()
-        @updateMediaQueriesLog()
+
         return
 
     onResize : =>
 
         @getDims()
-        @updateMediaQueriesLog()
-        return
 
-    updateMediaQueriesLog : =>
-
-        if @header then @header.$el.find(".breakpoint").html "<div class='l'>CURRENT BREAKPOINT:</div><div class='b'>#{MediaQueries.getBreakpoint()}</div>"
         return
 
     getDims : =>

@@ -51,10 +51,10 @@ class App
 
     initObjects : =>
 
-        @templates = new Templates "/data/templates#{(if @LIVE then '.min' else '')}.xml", @objectComplete
-        @locale    = new Locale "/data/locales/strings.json", @objectComplete
-        @analytics = new Analytics "/data/tracking.json", @objectComplete
         @appData   = new AppData @objectComplete
+        @templates = new Templates window._TEMPLATES, @objectComplete
+        @locale    = new Locale window._LOCALE_STRINGS, @objectComplete
+        @analytics = new Analytics window._TRACKING, @objectComplete
 
         # if new objects are added don't forget to change the `@objectComplete` function
 

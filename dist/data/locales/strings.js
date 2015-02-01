@@ -1,4 +1,4 @@
-{
+window._LOCALE_STRINGS = {
     "lang": "en-gb",
     "strings": {
         "SEO": {
@@ -46,4 +46,4 @@
             }
         }
     }
-}
+};
