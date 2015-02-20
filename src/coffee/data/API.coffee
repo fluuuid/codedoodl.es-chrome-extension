@@ -7,7 +7,7 @@ class API
 	@getContants : =>
 
 		### add more if we wanna use in API strings ###
-		BASE_PATH : @CD_CE().BASE_PATH
+		API_HOST : @CD_CE().API_HOST
 
 	@get : (name, vars) =>
 
