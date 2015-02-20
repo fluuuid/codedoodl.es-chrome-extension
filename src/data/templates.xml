@@ -54,6 +54,7 @@
         <![CDATA[
             <section id="page-home" class="page page-home">
                 <i><%= desc %></i>
+                <iframe src="http://source.codedoodl.es/test.html" frameborder="0"></iframe>
             </section>
         ]]>
     </template>
