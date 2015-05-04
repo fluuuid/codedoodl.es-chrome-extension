@@ -7,7 +7,7 @@
       "newtab": "index.html"
    },
    "content_security_policy": "script-src 'self' 'unsafe-eval' https://codedoodl.es; object-src 'self'",
-   "description": "Creative coding sketches",
+   "description": "Creative coding sketches \\\\ see a doodle every time you open a new tab",
    "icons": {
       "128": "static/img/icons/icon-128.png",
       "16": "static/img/icons/icon-16.png",

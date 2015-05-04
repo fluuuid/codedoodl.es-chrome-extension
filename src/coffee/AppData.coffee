@@ -1,6 +1,7 @@
-AbstractData = require './data/AbstractData'
-Requester    = require './utils/Requester'
-API          = require './data/API'
+AbstractData      = require './data/AbstractData'
+Requester         = require './utils/Requester'
+API               = require './data/API'
+DoodlesCollection = require './collections/doodles/DoodlesCollection'
 
 class AppData extends AbstractData
 
@@ -8,13 +9,9 @@ class AppData extends AbstractData
 
     constructor : (@callback) ->
 
-        ###
-
-        add all data classes here
-
-        ###
-
         super()
+
+        @doodles = new DoodlesCollection
 
         @getStartData()
 
@@ -38,11 +35,7 @@ class AppData extends AbstractData
 
         console.log "onStartDataReceived : (data) =>", data
 
-        ###
-
-        bootstrap data received, app ready to go
-
-        ###
+        @doodles.add data.doodles
 
         @callback?()
 

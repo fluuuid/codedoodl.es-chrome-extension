@@ -21,10 +21,34 @@ window._LOCALE_STRINGS = {
                 "seo_canonical_url": "msg"
             }
         },
+        "PAGE_TITLES": {
+            "title": "Page titles",
+            "strings": {
+                "page_title_HOME": "codedoodl.es \\\\ creative code sketches",
+                "page_title_ABOUT": "about \\\\ codedoodl.es",
+                "page_title_CONTRIBUTE": "contribute \\\\ codedoodl.es",
+                "page_title_DOODLES": "{{ name }}  \\\\ codedoodl.es",
+                "page_title_HOLDING": "codedoodl.es \\\\ coming soon",
+                "page_title_FOUR_OH_FOUR": "codedoodl.es \\\\ 404 \\ pageNotFound"
+            }
+        },
+        "PAGE_TRANSITIONER": {
+            "title": "Page transitioner",
+            "strings": {
+                "page_transitioner_label_HOME": "home",
+                "page_transitioner_label_ABOUT": "about",
+                "page_transitioner_label_CONTRIBUTE": "contribute",
+                "page_transitioner_label_prefix": "entering"
+            }
+        },
         "HEADER": {
             "title": "Header",
             "strings": {
-                "header_desc": "I am the header"
+                "header_logo_label": "codedoodl.es",
+                "header_about_label": "about",
+                "header_contribute_label": "contribute",
+                "header_close_label": "close",
+                "header_info_label": "info"
             }
         },
         "FOOTER": {
@@ -39,10 +63,26 @@ window._LOCALE_STRINGS = {
                 "home_desc": "I am the home page..."
             }
         },
-        "EXAMPLE_PAGE": {
-            "title": "Example page",
+        "DOODLE_PAGE": {
+            "title": "Doodle page",
             "strings": {
-                "example_desc": "I am the example page..."
+                "doodle_label_author": "Author",
+                "doodle_label_doodle_name": "Doodle",
+                "doodle_label_description": "Description",
+                "doodle_label_tags": "Tags",
+                "doodle_label_interaction": "Interaction",
+                "doodle_label_interaction_mouse": "Mouse",
+                "doodle_label_interaction_keyboard": "Keyboard",
+                "doodle_label_interaction_touch": "Touch",
+                "doodle_label_interaction_none": "None",
+                "doodle_label_share": "Share",
+                "doodle_share_text_tmpl": "{{ doodle_name }}&nbsp;by&nbsp;{{ doodle_author }}&nbsp;\\&nbsp;{{ share_url }}&nbsp;\\&nbsp;{{ doodle_tags}}&nbsp;via\\&nbsp;@codedoodl_es"
+            }
+        },
+        "MISC": {
+            "title": "Miscelleanous",
+            "strings": {
+                "misc_portfolio_label": "portfolio"
             }
         }
     }

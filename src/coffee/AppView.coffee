@@ -142,7 +142,7 @@ class AppView extends AbstractView
 
     navigateToUrl : ( href, e = null ) =>
 
-        route   = if href.match(@CD_CE().BASE_PATH) then href.split(@CD_CE().BASE_PATH)[1] else href
+        route   = if href.match(@CD_CE().BASE_URL) then href.split(@CD_CE().BASE_URL)[1] else href
         section = if route.indexOf('/') is 0 then route.split('/')[1] else route
 
         if @CD_CE().nav.getSection section
