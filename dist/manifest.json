@@ -19,5 +19,5 @@
    "name": "codedoodl.es",
    "permissions": [ "http://codedoodl.es" ],
    "update_url": "https://clients2.google.com/service/update2/crx",
-   "version": "0.0.0.1"
+   "version": "0.0.1"
 }
