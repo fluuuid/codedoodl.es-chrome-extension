@@ -36,6 +36,7 @@ class AppData extends AbstractData
         console.log "onStartDataReceived : (data) =>", data
 
         @doodles.add data.doodles
+        @activeDoodle = @doodles.at(1)
 
         @callback?()
 

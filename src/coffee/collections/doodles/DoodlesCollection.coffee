@@ -16,7 +16,7 @@ class DoodlesCollection extends AbstractCollection
 
 	getDoodleByNavSection : (whichSection) =>
 
-		section = @CD().nav[whichSection]
+		section = @CD_CE().nav[whichSection]
 
 		doodle = @findWhere slug : "#{section.sub}/#{section.ter}"
 

@@ -76,7 +76,7 @@ window._LOCALE_STRINGS = {
                 "doodle_label_interaction_touch": "Touch",
                 "doodle_label_interaction_none": "None",
                 "doodle_label_share": "Share",
-                "doodle_share_text_tmpl": "{{ doodle_name }}&nbsp;by&nbsp;{{ doodle_author }}&nbsp;\\&nbsp;{{ share_url }}&nbsp;\\&nbsp;{{ doodle_tags}}&nbsp;via\\&nbsp;@codedoodl_es"
+                "doodle_share_text_tmpl": "{{ doodle_name }}&nbsp;by&nbsp;{{ doodle_author }}&nbsp;\\&nbsp;{{ share_url }}&nbsp;\\&nbsp;{{ doodle_tags }}&nbsp;via\\&nbsp;@codedoodl_es"
             }
         },
         "MISC": {

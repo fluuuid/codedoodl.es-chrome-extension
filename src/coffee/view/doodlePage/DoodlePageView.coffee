@@ -7,6 +7,8 @@ class DoodlePageView extends AbstractViewPage
 
 	constructor : ->
 
+		console.log "i am hamm"
+
 		@templateVars = {}
 
 		super()
@@ -22,9 +24,6 @@ class DoodlePageView extends AbstractViewPage
 		@$keyboard = @$el.find('[data-indicator="keyboard"]')
 		@$touch    = @$el.find('[data-indicator="touch"]')
 
-		@$prevDoodleNav = @$el.find('[data-doodle-nav="prev"]')
-		@$nextDoodleNav = @$el.find('[data-doodle-nav="next"]')
-
 		null
 
 	setListeners : (setting) =>
@@ -37,7 +36,7 @@ class DoodlePageView extends AbstractViewPage
 
 	show : (cb) =>
 
-		@model = @getDoodle()
+		@model = @CD_CE().appData.activeDoodle
 
 		@setupUI()
 
@@ -65,25 +64,6 @@ class DoodlePageView extends AbstractViewPage
 		@$keyboard.attr 'disabled', !@model.get('interaction.keyboard')
 		@$touch.attr 'disabled', !@model.get('interaction.touch')
 
-		@setupNavLinks()
-
-		null
-
-	setupNavLinks : =>
-
-		prevDoodle = @CD_CE().appData.doodles.getPrevDoodle @model
-		nextDoodle = @CD_CE().appData.doodles.getNextDoodle @model
-
-		if prevDoodle
-			@$prevDoodleNav.attr('href', prevDoodle.get('url')).addClass('show')
-		else
-			@$prevDoodleNav.removeClass('show')
-
-		if nextDoodle
-			@$nextDoodleNav.attr('href', nextDoodle.get('url')).addClass('show')
-		else
-			@$nextDoodleNav.removeClass('show')
-
 		null
 
 	showFrame : (removeEvent=true) =>
@@ -93,17 +73,10 @@ class DoodlePageView extends AbstractViewPage
 		# TEMP, OBVZ
 		srcDir = if @model.get('colour_scheme') is 'light' then 'shape-stream-light' else 'shape-stream'
 
-		@$frame.attr 'src', "http://source.codedoodl.es/sample_doodles/#{srcDir}/index.html"
-		@$frame.one 'load', => @$frame.addClass('show')
+		# @$frame.attr 'src', "http://source.codedoodl.es/sample_doodles/#{srcDir}/index.html"
+		# @$frame.one 'load', => @$frame.addClass('show')
 
 		null
-
-	getDoodle : =>
-
-		# doodle = @CD_CE().appData.doodles.getDoodleBySlug @CD_CE().nav.current.sub+'/'+@CD_CE().nav.current.ter
-		doodle = @CD_CE().appData.doodles.at(0)
-
-		doodle
 
 	getDoodleInfoContent : =>
 
@@ -123,8 +96,8 @@ class DoodlePageView extends AbstractViewPage
 			label_interaction          : @CD_CE().locale.get "doodle_label_interaction"
 			content_interaction        : @_getInteractionContent()
 			label_share                : @CD_CE().locale.get "doodle_label_share"
-			share_url                  : @CD_CE().BASE_URL + '/' + @model.get('shortlink')
-			share_url_text             : @CD_CE().BASE_URL.replace('http://', '') + '/' + @model.get('shortlink')
+			share_url                  : @CD_CE().SITE_URL + '/' + @model.get('shortlink')
+			share_url_text             : @CD_CE().SITE_URL.replace('http://', '') + '/' + @model.get('shortlink')
 
 		doodleInfoContent = _.template(@CD_CE().templates.get('doodle-info'))(doodleInfoVars)
 
@@ -156,9 +129,9 @@ class DoodlePageView extends AbstractViewPage
 
 		e.preventDefault()
 
-		url         = ' '
-		desc        = @getShareDesc()
 		shareMethod = $(e.currentTarget).attr('data-share-btn')
+		url         = if shareMethod is 'facebook' then @CD_CE().SITE_URL + '/' + @model.get('shortlink') else ' '
+		desc        = @getShareDesc()
 
 		@CD_CE().share[shareMethod] url, desc
 
@@ -169,7 +142,7 @@ class DoodlePageView extends AbstractViewPage
 		vars =
 			doodle_name   : @model.get 'name'
 			doodle_author : if @model.get('author.twitter') then "@#{@model.get('author.twitter')}" else @model.get('author.name')
-			share_url     : @CD_CE().BASE_URL + '/' + @model.get('shortlink')
+			share_url     : @CD_CE().SITE_URL + '/' + @model.get('shortlink')
 			doodle_tags   : _.map(@model.get('tags'), (tag) -> '#' + tag).join(' ')
 
 		desc = @supplantString @CD_CE().locale.get('doodle_share_text_tmpl'), vars, false

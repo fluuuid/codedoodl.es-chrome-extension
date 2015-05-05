@@ -7,8 +7,7 @@ class Nav extends AbstractView
     @EVENT_CHANGE_SUB_VIEW : 'EVENT_CHANGE_SUB_VIEW'
 
     sections :
-        HOME    : 'index.html'
-        EXAMPLE : 'example'
+        HOME : 'index.html'
 
     current  : area : null, sub : null
     previous : area : null, sub : null
@@ -44,16 +43,6 @@ class Nav extends AbstractView
             @trigger Nav.EVENT_CHANGE_SUB_VIEW, @current
 
         if @CD_CE().appView.modalManager.isOpen() then @CD_CE().appView.modalManager.hideOpenModal()
-
-        @setPageTitle area, sub
-
-        null
-
-    setPageTitle: (area, sub) =>
-
-        title = "PAGE TITLE HERE - LOCALISE BASED ON URL"
-
-        if window.document.title isnt title then window.document.title = title
 
         null
 

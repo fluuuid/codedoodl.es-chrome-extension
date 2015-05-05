@@ -2,7 +2,7 @@ window.config = {
 	ENV        : "",
 	GA_code    : "",
 	API_HOST   : "http://codedoodl.es",
-	base_url   : "http://codedoodl.es",
+	SITE_URL   : "http://codedoodl.es",
 	hostname   : document.location.protocol + "//" + document.location.host,
 	localeCode : "en-gb",
 	CDN        : '/static',

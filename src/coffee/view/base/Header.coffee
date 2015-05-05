@@ -16,19 +16,9 @@ class Header extends AbstractView
 	constructor : ->
 
 		@templateVars =
-			home    : 
-				label    : @CD_CE().locale.get('header_logo_label')
-				url      : @CD_CE().BASE_URL + '/' + @CD_CE().nav.sections.HOME
-			about : 
-				label    : @CD_CE().locale.get('header_about_label')
-				url      : @CD_CE().BASE_URL + '/' + @CD_CE().nav.sections.ABOUT
-				section  : @CD_CE().nav.sections.ABOUT
-			contribute : 
-				label    : @CD_CE().locale.get('header_contribute_label')
-				url      : @CD_CE().BASE_URL + '/' + @CD_CE().nav.sections.CONTRIBUTE
-				section  : @CD_CE().nav.sections.CONTRIBUTE
+			home_label  : @CD_CE().locale.get('header_logo_label')
 			close_label : @CD_CE().locale.get('header_close_label')
-			info_label : @CD_CE().locale.get('header_info_label')
+			info_label  : @CD_CE().locale.get('header_info_label')
 
 		super()
 
@@ -38,11 +28,9 @@ class Header extends AbstractView
 
 	init : =>
 
-		@$logo              = @$el.find('.logo__link')
-		@$navLinkAbout      = @$el.find('.about-btn')
-		@$navLinkContribute = @$el.find('.contribute-btn')
-		@$infoBtn           = @$el.find('.info-btn')
-		@$closeBtn          = @$el.find('.close-btn')
+		@$logo     = @$el.find('.logo__link')
+		@$infoBtn  = @$el.find('.info-btn')
+		@$closeBtn = @$el.find('.close-btn')
 
 		null
 
@@ -57,8 +45,6 @@ class Header extends AbstractView
 		@$infoBtn.on 'click', @onInfoBtnClick
 		@$closeBtn.on 'click', @onCloseBtnClick
 
-		@$el.on 'click', '[data-logo]', @onLogoClick
-
 		@CD_CE().appView.$window.on 'keyup', @onKeyup
 
 		null
@@ -67,6 +53,8 @@ class Header extends AbstractView
 
 		if @FIRST_HASHCHANGE
 			@FIRST_HASHCHANGE = false
+			CodeWordTransitioner.prepare [@$logo, @$infoBtn], @_getDoodleColourScheme()
+			CodeWordTransitioner.out [@$closeBtn], @_getDoodleColourScheme()
 			return
 		
 		@onAreaChange where
@@ -83,28 +71,12 @@ class Header extends AbstractView
 
 		CodeWordTransitioner.in @$logo, colour
 
-		# this just for testing, tidy later
 		if section is @CD_CE().nav.sections.HOME
-			CodeWordTransitioner.in [@$navLinkAbout, @$navLinkContribute], colour
-			CodeWordTransitioner.out [@$closeBtn, @$infoBtn], colour
-		else if section is @CD_CE().nav.sections.DOODLES
-			CodeWordTransitioner.in [@$closeBtn, @$infoBtn], colour
-			CodeWordTransitioner.out [@$navLinkAbout, @$navLinkContribute], colour
-		else if section is @CD_CE().nav.sections.ABOUT
-			CodeWordTransitioner.in [@$navLinkContribute, @$closeBtn], colour
-			CodeWordTransitioner.in [@$navLinkAbout], 'black-white-bg'
-			CodeWordTransitioner.out [@$infoBtn], colour
-		else if section is @CD_CE().nav.sections.CONTRIBUTE
-			CodeWordTransitioner.in [@$navLinkAbout, @$closeBtn], colour
-			CodeWordTransitioner.in [@$navLinkContribute], 'black-white-bg'
-			CodeWordTransitioner.out [@$infoBtn], colour
+			CodeWordTransitioner.in [@$infoBtn], colour
+			CodeWordTransitioner.out [@$closeBtn], colour
 		else if section is 'doodle-info'
 			CodeWordTransitioner.in [@$closeBtn], colour
-			CodeWordTransitioner.out [@$navLinkAbout, @$navLinkContribute], colour
 			CodeWordTransitioner.in [@$infoBtn], 'offwhite-red-bg'
-		else
-			CodeWordTransitioner.in [@$closeBtn], colour
-			CodeWordTransitioner.out [@$navLinkAbout, @$navLinkContribute, @$infoBtn], colour
 
 		null
 
@@ -120,17 +92,14 @@ class Header extends AbstractView
 
 		colour = switch section
 			when 'home', 'doodle-info' then 'red'
-			when @CD_CE().nav.sections.ABOUT then 'white'
-			when @CD_CE().nav.sections.CONTRIBUTE then 'white'
-			when @CD_CE().nav.sections.DOODLES then @_getDoodleColourScheme()
+			when @CD_CE().nav.sections.HOME then @_getDoodleColourScheme()
 			else 'white'
 
 		colour
 
 	_getDoodleColourScheme : =>
 
-		doodle = @CD_CE().appData.doodles.getDoodleByNavSection 'current'
-		colour = if doodle and doodle.get('colour_scheme') is 'light' then 'black' else 'white'
+		colour = if @CD_CE().appData.activeDoodle.get('colour_scheme') is 'light' then 'black' else 'white'
 
 		colour
 
@@ -158,18 +127,11 @@ class Header extends AbstractView
 
 		null
 
-	onLogoClick : =>
-
-		if @CD_CE().nav.current.area is @CD_CE().nav.sections.HOME
-			@trigger @EVENT_HOME_SCROLL_TO_TOP
-
-		null
-
 	onInfoBtnClick : (e) =>
 
 		e.preventDefault()
 
-		return unless @CD_CE().nav.current.area is @CD_CE().nav.sections.DOODLES
+		return unless @CD_CE().nav.current.area is @CD_CE().nav.sections.HOME
 
 		if !@DOODLE_INFO_OPEN then @showDoodleInfo()
 
@@ -186,7 +148,7 @@ class Header extends AbstractView
 
 	onKeyup : (e) =>
 
-		if e.keyCode is 27 and @CD_CE().nav.current.area is @CD_CE().nav.sections.DOODLES then @hideDoodleInfo()
+		if e.keyCode is 27 then @hideDoodleInfo()
 
 		null
 

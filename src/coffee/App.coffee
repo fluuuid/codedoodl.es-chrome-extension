@@ -15,6 +15,7 @@ class App
 
     LIVE       : null
     BASE_URL   : window.config.hostname
+    SITE_URL   : window.config.SITE_URL
     API_HOST   : window.config.API_HOST
     localeCode : window.config.localeCode
     objReady   : 0
