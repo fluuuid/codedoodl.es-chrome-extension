@@ -80,6 +80,7 @@
         z-index: 1;
         visibility: hidden;
         opacity: 0;
+        overflow: hidden;
         transition: all .3s $easeInOutExpo;
 
         &.show {

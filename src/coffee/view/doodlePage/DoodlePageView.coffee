@@ -73,8 +73,8 @@ class DoodlePageView extends AbstractViewPage
 		# TEMP, OBVZ
 		srcDir = if @model.get('colour_scheme') is 'light' then 'shape-stream-light' else 'shape-stream'
 
-		# @$frame.attr 'src', "http://source.codedoodl.es/sample_doodles/#{srcDir}/index.html"
-		# @$frame.one 'load', => @$frame.addClass('show')
+		@$frame.attr 'src', "http://source.codedoodl.es/sample_doodles/#{srcDir}/index.html"
+		@$frame.one 'load', => @$frame.addClass('show')
 
 		null
 
