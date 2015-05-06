@@ -24,9 +24,11 @@
     <template id="site-header">
         <![CDATA[
             <header id="site-header">
-                <h1 class="logo" data-logo><a class="logo__link" href="http://codedoodl.es" target="_blank" data-codeword data-codeword-initial-state="red"><%= home_label %></a></h1>
+                <h1 class="logo" data-logo>
+                    <a class="logo__link white" href="http://codedoodl.es" target="_blank" data-codeword="" data-codeword-initial-state="white"><span data-codetext-char="c" data-codetext-char-state="white">c</span><span data-codetext-char="o" data-codetext-char-state="white">o</span><span data-codetext-char="d" data-codetext-char-state="white">d</span><span data-codetext-char="e" data-codetext-char-state="white">e</span><span data-codetext-char="d" data-codetext-char-state="white">d</span><span data-codetext-char="o" data-codetext-char-state="white">o</span><span data-codetext-char="o" data-codetext-char-state="white">o</span><span data-codetext-char="d" data-codetext-char-state="white">d</span><span data-codetext-char="l" data-codetext-char-state="white">l</span><span data-codetext-char="." data-codetext-char-state="white">.</span><span data-codetext-char="e" data-codetext-char-state="white">e</span><span data-codetext-char="s" data-codetext-char-state="white">s</span></a>
+                </h1>
                 <nav class="site-nav">
-                    <a class="site-nav__link info-btn" href="#" data-show-info data-word-section="doodle-info" data-codeword data-codeword-initial-state="offwhite"><%= info_label %></a>
+                    <a class="site-nav__link info-btn white" href="#" data-show-info="" data-word-section="doodle-info" data-codeword="" data-codeword-initial-state="white"><span data-codetext-char="i" data-codetext-char-state="white">i</span><span data-codetext-char="n" data-codetext-char-state="white">n</span><span data-codetext-char="f" data-codetext-char-state="white">f</span><span data-codetext-char="o" data-codetext-char-state="white">o</span></a>
                 </nav>
                 <a href="#" class="close-btn" data-close-doodle data-codeword data-codeword-initial-state=""><%= close_label %></a>
             </header>

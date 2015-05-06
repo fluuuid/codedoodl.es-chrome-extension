@@ -53,8 +53,17 @@ class Header extends AbstractView
 
 		if @FIRST_HASHCHANGE
 			@FIRST_HASHCHANGE = false
-			CodeWordTransitioner.prepare [@$logo, @$infoBtn], @_getDoodleColourScheme()
-			CodeWordTransitioner.out [@$closeBtn], @_getDoodleColourScheme()
+
+			colorScheme = @_getDoodleColourScheme()
+			# CodeWordTransitioner.prepare [@$logo, @$infoBtn], @_getDoodleColourScheme()
+			@$logo.add(@$infoBtn)
+				.addClass(colorScheme)
+				.attr('data-codeword-initial-state', colorScheme)
+				.find('[data-codetext-char-state]')
+					.attr('data-codetext-char-state', colorScheme)
+
+			CodeWordTransitioner.out [@$closeBtn], colorScheme
+
 			return
 		
 		@onAreaChange where
