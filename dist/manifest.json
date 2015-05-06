@@ -17,7 +17,10 @@
    // "key": "",
    "manifest_version": 2,
    "name": "codedoodl.es",
-   "permissions": [ "http://codedoodl.es" ],
+   "permissions": [
+      "http://codedoodl.es",
+      "storage"
+   ],
    "update_url": "https://clients2.google.com/service/update2/crx",
    "version": "0.0.1"
 }

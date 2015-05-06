@@ -3,43 +3,65 @@ DoodleModel        = require '../../models/doodle/DoodleModel'
 
 class DoodlesCollection extends AbstractCollection
 
-	model : DoodleModel
+    model : DoodleModel
 
-	getDoodleBySlug : (slug) =>
+    getDoodleBySlug : (slug) =>
 
-		doodle = @findWhere slug : slug
+        doodle = @findWhere slug : slug
 
-		if !doodle
-			console.log "y u no doodle?"
+        if !doodle
+            console.log "y u no doodle?"
 
-		return doodle
+        return doodle
 
-	getDoodleByNavSection : (whichSection) =>
+    getDoodleByNavSection : (whichSection) =>
 
-		section = @CD_CE().nav[whichSection]
+        section = @CD_CE().nav[whichSection]
 
-		doodle = @findWhere slug : "#{section.sub}/#{section.ter}"
+        doodle = @findWhere slug : "#{section.sub}/#{section.ter}"
 
-		doodle
+        doodle
 
-	getPrevDoodle : (doodle) =>
+    getPrevDoodle : (doodle) =>
 
-		index = @indexOf doodle
-		index--
+        index = @indexOf doodle
+        index--
 
-		if index < 0
-			return false
-		else
-			return @at index
+        if index < 0
+            return false
+        else
+            return @at index
 
-	getNextDoodle : (doodle) =>
+    getNextDoodle : (doodle) =>
 
-		index = @indexOf doodle
-		index++
+        index = @indexOf doodle
+        index++
 
-		if index > (@length.length-1)
-			return false
-		else
-			return @at index
+        if index > (@length.length-1)
+            return false
+        else
+            return @at index
+
+    addNew : (doodles) =>
+
+        for doodle in doodles
+            if !@findWhere( index : doodle.index )
+                @add doodle
+
+        null
+
+    getNextDoodle : =>
+
+        for doodle in @models
+
+            if !doodle.get('viewed')
+                doodle.set('viewed', true)
+                nextDoodle = doodle
+                break
+
+        if !nextDoodle
+            console.log 'waaaaa u seen them all?!'
+
+        nextDoodle
 
 module.exports = DoodlesCollection

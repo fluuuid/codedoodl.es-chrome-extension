@@ -32,11 +32,12 @@ class DoodleModel extends AbstractModel
         "scrambled" :
             "name"        : ""
             "author_name" : ""
+        "viewed" : false
 
     _filterAttrs : (attrs) =>
 
         if attrs.slug
-            attrs.url = window.config.hostname + '/' + window.config.routes.DOODLES + '/' + attrs.slug
+            attrs.url = window.config.SITE_URL + '/' + window.config.routes.DOODLES + '/' + attrs.slug
 
         if attrs.index
             attrs.index_padded = NumberUtils.zeroFill attrs.index, 3
