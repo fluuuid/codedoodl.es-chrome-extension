@@ -61,6 +61,7 @@ class DoodlesCollection extends AbstractCollection
 
         if !nextDoodle
             console.log 'waaaaa u seen them all?!'
+            nextDoodle = _.shuffle(@models)[0]
 
         nextDoodle
 
