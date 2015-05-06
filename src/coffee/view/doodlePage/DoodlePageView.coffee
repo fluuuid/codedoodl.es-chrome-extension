@@ -71,9 +71,9 @@ class DoodlePageView extends AbstractViewPage
 		if removeEvent then @CD_CE().appView.transitioner.off @CD_CE().appView.transitioner.EVENT_TRANSITIONER_OUT_DONE, @showFrame
 
 		# TEMP, OBVZ
-		srcDir = if @model.get('colour_scheme') is 'light' then 'shape-stream-light' else 'shape-stream'
+		SAMPLE_DIR = @model.get('SAMPLE_DIR')
 
-		@$frame.attr 'src', "http://source.codedoodl.es/sample_doodles/#{srcDir}/index.html"
+		@$frame.attr 'src', "http://source.codedoodl.es/sample_doodles/#{SAMPLE_DIR}/index.html"
 		@$frame.one 'load', => @$frame.addClass('show')
 
 		null
