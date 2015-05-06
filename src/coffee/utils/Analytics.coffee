@@ -9,13 +9,13 @@ class Analytics
     attempts        : 0
     allowedAttempts : 5
 
-    constructor : (tags, @callback) ->
+    constructor : (data, @callback) ->
 
-        $.getJSON tags, @onTagsReceived
+        @parseData data
 
         return null
 
-    onTagsReceived : (data) =>
+    parseData : (data) =>
 
         @tags    = data
         @started = true

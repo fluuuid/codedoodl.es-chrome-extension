@@ -7,15 +7,14 @@ class Nav extends AbstractView
     @EVENT_CHANGE_SUB_VIEW : 'EVENT_CHANGE_SUB_VIEW'
 
     sections :
-        HOME    : ''
-        EXAMPLE : 'example'
+        HOME : 'index.html'
 
     current  : area : null, sub : null
     previous : area : null, sub : null
 
     constructor: ->
 
-        @__NAMESPACE__().router.on Router.EVENT_HASH_CHANGED, @changeView
+        @CD_CE().router.on Router.EVENT_HASH_CHANGED, @changeView
 
         return false
 
@@ -43,17 +42,7 @@ class Nav extends AbstractView
             @trigger Nav.EVENT_CHANGE_VIEW, @previous, @current
             @trigger Nav.EVENT_CHANGE_SUB_VIEW, @current
 
-        if @__NAMESPACE__().appView.modalManager.isOpen() then @__NAMESPACE__().appView.modalManager.hideOpenModal()
-
-        @setPageTitle area, sub
-
-        null
-
-    setPageTitle: (area, sub) =>
-
-        title = "PAGE TITLE HERE - LOCALISE BASED ON URL"
-
-        if window.document.title isnt title then window.document.title = title
+        if @CD_CE().appView.modalManager.isOpen() then @CD_CE().appView.modalManager.hideOpenModal()
 
         null
 

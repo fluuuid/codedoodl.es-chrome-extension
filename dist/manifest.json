@@ -6,17 +6,21 @@
    "chrome_url_overrides": {
       "newtab": "index.html"
    },
-   "description": "Creative coding sketches",
+   "content_security_policy": "script-src 'self' 'unsafe-eval' https://codedoodl.es; object-src 'self'",
+   "description": "Creative coding sketches \\\\ see a doodle every time you open a new tab",
    "icons": {
       "128": "static/img/icons/icon-128.png",
       "16": "static/img/icons/icon-16.png",
       "48": "static/img/icons/icon-48.png"
    },
    "incognito": "split",
-   "key": "",
+   // "key": "",
    "manifest_version": 2,
-   "name": "code doodles",
-   "permissions": [ "http://codedoodl.es" ],
+   "name": "codedoodl.es",
+   "permissions": [
+      "http://codedoodl.es",
+      "storage"
+   ],
    "update_url": "https://clients2.google.com/service/update2/crx",
-   "version": "0.0.0.1"
+   "version": "0.0.1"
 }

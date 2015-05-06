@@ -6,23 +6,22 @@ class Templates
     templates : null
     cb        : null
 
-    constructor : (templates, callback) ->
+    constructor : (data, callback) ->
 
         @cb = callback
 
-        $.ajax url : templates, success : @parseXML
+        @parseData data
            
         null
 
-    parseXML : (data) =>
+    parseData : (data) =>
 
         temp = []
 
-        $(data).find('template').each (key, value) ->
-            $value = $(value)
+        for item in data.template
             temp.push new TemplateModel
-                id   : $value.attr('id').toString()
-                text : $.trim $value.text()
+                id   : item.$.id
+                text : item._
 
         @templates = new TemplatesCollection temp
 

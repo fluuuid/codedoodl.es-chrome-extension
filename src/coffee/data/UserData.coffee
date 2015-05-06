@@ -110,7 +110,7 @@ class UserData extends AbstractData
 
 	onLogoutDone : =>
 
-		window.location.href = @__NAMESPACE__().BASE_PATH
+		window.location.href = @CD_CE().BASE_URL
 
 		null
 

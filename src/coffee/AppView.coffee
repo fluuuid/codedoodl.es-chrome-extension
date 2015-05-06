@@ -38,19 +38,24 @@ class AppView extends AbstractView
 
         super()
 
+        return null
+
     disableTouch: =>
 
         @$window.on 'touchmove', @onTouchMove
+
         return
 
     enableTouch: =>
 
         @$window.off 'touchmove', @onTouchMove
+
         return
 
     onTouchMove: ( e ) ->
 
         e.preventDefault()
+
         return
 
     render : =>
@@ -70,6 +75,7 @@ class AppView extends AbstractView
             .addChild @footer
 
         @onAllRendered()
+
         return
 
     bindEvents : =>
@@ -80,6 +86,7 @@ class AppView extends AbstractView
 
         @onResize = _.debounce @onResize, 300
         @$window.on 'resize orientationchange', @onResize
+
         return
 
     onAllRendered : =>
@@ -89,27 +96,23 @@ class AppView extends AbstractView
         @$body.prepend @$el
 
         @begin()
+
         return
 
     begin : =>
 
         @trigger 'start'
 
-        @__NAMESPACE__().router.start()
+        @CD_CE().router.start()
 
         @preloader.hide()
-        @updateMediaQueriesLog()
+
         return
 
     onResize : =>
 
         @getDims()
-        @updateMediaQueriesLog()
-        return
 
-    updateMediaQueriesLog : =>
-
-        if @header then @header.$el.find(".breakpoint").html "<div class='l'>CURRENT BREAKPOINT:</div><div class='b'>#{MediaQueries.getBreakpoint()}</div>"
         return
 
     getDims : =>
@@ -139,12 +142,12 @@ class AppView extends AbstractView
 
     navigateToUrl : ( href, e = null ) =>
 
-        route   = if href.match(@__NAMESPACE__().BASE_PATH) then href.split(@__NAMESPACE__().BASE_PATH)[1] else href
+        route   = if href.match(@CD_CE().BASE_URL) then href.split(@CD_CE().BASE_URL)[1] else href
         section = if route.indexOf('/') is 0 then route.split('/')[1] else route
 
-        if @__NAMESPACE__().nav.getSection section
+        if @CD_CE().nav.getSection section
             e?.preventDefault()
-            @__NAMESPACE__().router.navigateTo route
+            @CD_CE().router.navigateTo route
         else 
             @handleExternalLink href
 

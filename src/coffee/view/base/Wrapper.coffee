@@ -1,6 +1,5 @@
 AbstractView    = require '../AbstractView'
-HomeView        = require '../home/HomeView'
-ExamplePageView = require '../examplePage/ExamplePageView'
+DoodlePageView     = require '../doodlePage/DoodlePageView'
 Nav             = require '../../router/Nav'
 
 class Wrapper extends AbstractView
@@ -18,8 +17,7 @@ class Wrapper extends AbstractView
 	constructor : ->
 
 		@views =
-			home    : classRef : HomeView,        route : @__NAMESPACE__().nav.sections.HOME,    view : null, type : @VIEW_TYPE_PAGE
-			example : classRef : ExamplePageView, route : @__NAMESPACE__().nav.sections.EXAMPLE, view : null, type : @VIEW_TYPE_PAGE
+			doodle : classRef : DoodlePageView, route : @CD_CE().nav.sections.HOME, view : null, type : @VIEW_TYPE_PAGE
 
 		@createClasses()
 
@@ -50,61 +48,58 @@ class Wrapper extends AbstractView
 
 		null
 
+	getViewByRoute : (route) =>
+
+		for name, data of @views
+			return @views[name] if route is @views[name].route
+
+		if route then return @views.fourOhFour
+
+		null
+
 	init : =>
 
-		@__NAMESPACE__().appView.on 'start', @start
+		@CD_CE().appView.on 'start', @start
 
 		null
 
 	start : =>
 
-		@__NAMESPACE__().appView.off 'start', @start
+		@CD_CE().appView.off 'start', @start
 
 		@bindEvents()
+		@updateDims()
 
 		null
 
 	bindEvents : =>
 
-		@__NAMESPACE__().nav.on Nav.EVENT_CHANGE_VIEW, @changeView
-		@__NAMESPACE__().nav.on Nav.EVENT_CHANGE_SUB_VIEW, @changeSubView
+		@CD_CE().nav.on Nav.EVENT_CHANGE_VIEW, @changeView
+		@CD_CE().nav.on Nav.EVENT_CHANGE_SUB_VIEW, @changeSubView
+
+		@CD_CE().appView.on @CD_CE().appView.EVENT_UPDATE_DIMENSIONS, @updateDims
 
 		null
 
-	###
+	updateDims : =>
 
-	THIS IS A MESS, SORT IT (neil)
+		@$el.css 'min-height', @CD_CE().appView.dims.h
 
-	###
+		null
+
 	changeView : (previous, current) =>
+
+		if @pageSwitchDfd and @pageSwitchDfd.state() isnt 'resolved'
+			do (previous, current) => @pageSwitchDfd.done => @changeView previous, current
+			return
 
 		@previousView = @getViewByRoute previous.area
 		@currentView  = @getViewByRoute current.area
 
 		if !@previousView
-
-			if @currentView.type is @VIEW_TYPE_PAGE
-				@transitionViews false, @currentView.view
-			else if @currentView.type is @VIEW_TYPE_MODAL
-				@backgroundView = @views.home
-				@transitionViews false, @currentView.view, true
-
+			@transitionViews false, @currentView
 		else
-
-			if @currentView.type is @VIEW_TYPE_PAGE and @previousView.type is @VIEW_TYPE_PAGE
-				@transitionViews @previousView.view, @currentView.view
-			else if @currentView.type is @VIEW_TYPE_MODAL and @previousView.type is @VIEW_TYPE_PAGE
-				@backgroundView = @previousView
-				@transitionViews false, @currentView.view, true
-			else if @currentView.type is @VIEW_TYPE_PAGE and @previousView.type is @VIEW_TYPE_MODAL
-				@backgroundView = @backgroundView or @views.home
-				if @backgroundView isnt @currentView
-					@transitionViews @previousView.view, @currentView.view, false, true
-				else if @backgroundView is @currentView
-					@transitionViews @previousView.view, false
-			else if @currentView.type is @VIEW_TYPE_MODAL and @previousView.type is @VIEW_TYPE_MODAL
-				@backgroundView = @backgroundView or @views.home
-				@transitionViews @previousView.view, @currentView.view, true
+			@transitionViews @previousView, @currentView
 
 		null
 
@@ -114,19 +109,17 @@ class Wrapper extends AbstractView
 
 		null
 
-	transitionViews : (from, to, toModal=false, fromModal=false) =>
+	transitionViews : (from, to) =>
 
-		return unless from isnt to
-
-		if toModal then @backgroundView.view?.show()
-		if fromModal then @backgroundView.view?.hide()
+		@pageSwitchDfd = $.Deferred()
 
 		if from and to
-			from.hide to.show
+			@CD_CE().appView.transitioner.prepare from.route, to.route
+			@CD_CE().appView.transitioner.in => from.view.hide => to.view.show => @CD_CE().appView.transitioner.out => @pageSwitchDfd.resolve()
 		else if from
-			from.hide()
+			from.view.hide @pageSwitchDfd.resolve
 		else if to
-			to.show()
+			to.view.show @pageSwitchDfd.resolve
 
 		null
 

@@ -12,7 +12,6 @@ class Locale
     lang     : null
     data     : null
     callback : null
-    backup   : null
     default  : 'en-gb'
 
     constructor : (data, cb) ->
@@ -20,21 +19,10 @@ class Locale
         ### start Locale Loader, define locale based on browser language ###
 
         @callback = cb
-        @backup = data
 
         @lang = @getLang()
 
-        if API.get('locale', { code : @lang })
-
-            $.ajax
-                url     : API.get( 'locale', { code : @lang } )
-                type    : 'GET'
-                success : @onSuccess
-                error   : @loadBackup
-
-        else
-
-            @loadBackup()
+        @parseData data
 
         null
             
@@ -54,31 +42,12 @@ class Locale
 
         lang
 
-    onSuccess : (event) =>
+    parseData : (data) =>
 
         ### Fires back an event once it's complete ###
 
-        d = null
-
-        if event.responseText
-            d = JSON.parse event.responseText
-        else 
-            d = event
-
-        @data = new LocalesModel d
+        @data = new LocalesModel data
         @callback?()
-
-        null
-
-    loadBackup : =>
-
-        ### When API not available, tries to load the static .txt locale ###
-
-        $.ajax 
-            url      : @backup
-            dataType : 'json'
-            complete : @onSuccess
-            error    : => console.log 'error on loading backup'
 
         null
 
