@@ -57,6 +57,7 @@ class CodeWordTransitioner
 		state = initialState or $el.attr('data-codeword-initial-state') or ""
 		html = []
 		for char in chars
+			if char is ' ' then char = '&nbsp;'
 			html.push @_supplantString @config.CHAR_TEMPLATE, char : char, state: state
 
 		$el.html html.join('')

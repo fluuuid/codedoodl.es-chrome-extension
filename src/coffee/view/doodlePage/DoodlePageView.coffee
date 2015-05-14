@@ -1,4 +1,5 @@
 AbstractViewPage = require '../AbstractViewPage'
+CodeWordTransitioner = require '../../utils/CodeWordTransitioner'
 
 class DoodlePageView extends AbstractViewPage
 
@@ -17,8 +18,9 @@ class DoodlePageView extends AbstractViewPage
 
 	init : =>
 
-		@$frame       = @$el.find('[data-doodle-frame]')
-		@$infoContent = @$el.find('[data-doodle-info]')
+		@$frame        = @$el.find('[data-doodle-frame]')
+		@$infoContent  = @$el.find('[data-doodle-info]')
+		@$instructions = @$el.find('[data-doodle-instructions]')
 
 		@$mouse    = @$el.find('[data-indicator="mouse"]')
 		@$keyboard = @$el.find('[data-indicator="keyboard"]')
@@ -64,6 +66,8 @@ class DoodlePageView extends AbstractViewPage
 		@$keyboard.attr 'disabled', !@model.get('interaction.keyboard')
 		@$touch.attr 'disabled', !@model.get('interaction.touch')
 
+		@setupInstructions()
+
 		null
 
 	showFrame : (removeEvent=true) =>
@@ -74,9 +78,48 @@ class DoodlePageView extends AbstractViewPage
 		SAMPLE_DIR = @model.get('SAMPLE_DIR')
 
 		@$frame.attr 'src', "http://source.codedoodl.es/sample_doodles/#{SAMPLE_DIR}/index.html"
-		@$frame.one 'load', => @$frame.addClass('show')
+		@$frame.one 'load', @showDoodle
 
 		null
+
+	showDoodle : =>
+
+		@$frame.addClass('show')
+		setTimeout =>
+			CodeWordTransitioner.out @$instructions
+		, 1000
+
+		null
+
+	setupInstructions : =>
+
+		$newInstructions = @getInstructions()
+		@$instructions.replaceWith $newInstructions
+		@$instructions = $newInstructions
+
+		null
+
+	getInstructions : =>
+
+		# text = @model.get('instructions').toLowerCase()
+		# TEMP!
+		text = switch @model.get('SAMPLE_DIR')
+			when 'shape-stream', 'shape-stream-light' then 'move your mouse'
+			when 'box-physics' then 'click and drag'
+			when 'tubes' then 'click and hold'
+			else ''
+
+		$instructionsEl = $('<span />')
+		$instructionsEl
+			.addClass('doodle-instructions')
+			.attr('data-codeword', '')
+			.attr('data-doodle-instructions', '')
+			.text(text)
+
+		colourScheme = if @model.get('colour_scheme') is 'light' then 'black' else 'white'
+		CodeWordTransitioner.prepare $instructionsEl, colourScheme
+
+		$instructionsEl
 
 	getDoodleInfoContent : =>
 
