@@ -6,6 +6,8 @@ class DoodlePageView extends AbstractViewPage
 	template : 'page-doodle'
 	model    : null
 
+	colourScheme : null
+
 	constructor : ->
 
 		console.log "i am hamm"
@@ -58,6 +60,20 @@ class DoodlePageView extends AbstractViewPage
 
 	setupUI : =>
 
+		###
+		TEMP!!!
+		###
+		text = switch @model.get('SAMPLE_DIR')
+			when 'shape-stream', 'shape-stream-light' then 'Move your mouse'
+			when 'box-physics' then 'Click and drag'
+			when 'tubes' then 'Click and hold'
+			else ''
+		console.log "YO, set the text #{text}"
+		@model.set 'instructions': text
+		###
+		END TEMP!!!
+		###
+
 		@$infoContent.html @getDoodleInfoContent()
 
 		@$el.attr 'data-color-scheme', @model.get('colour_scheme')
@@ -65,6 +81,8 @@ class DoodlePageView extends AbstractViewPage
 		@$mouse.attr 'disabled', !@model.get('interaction.mouse')
 		@$keyboard.attr 'disabled', !@model.get('interaction.keyboard')
 		@$touch.attr 'disabled', !@model.get('interaction.touch')
+
+		@colourScheme = if @model.get('colour_scheme') is 'light' then 'black' else 'white'
 
 		@setupInstructions()
 
@@ -86,7 +104,8 @@ class DoodlePageView extends AbstractViewPage
 
 		@$frame.addClass('show')
 		setTimeout =>
-			CodeWordTransitioner.out @$instructions
+			blankInstructions = @model.get('instructions').split('').map(-> return ' ').join('')
+			CodeWordTransitioner.to blankInstructions, @$instructions, @colourScheme
 		, 1000
 
 		null
@@ -101,23 +120,21 @@ class DoodlePageView extends AbstractViewPage
 
 	getInstructions : =>
 
-		# text = @model.get('instructions').toLowerCase()
-		# TEMP!
-		text = switch @model.get('SAMPLE_DIR')
-			when 'shape-stream', 'shape-stream-light' then 'move your mouse'
-			when 'box-physics' then 'click and drag'
-			when 'tubes' then 'click and hold'
-			else ''
-
 		$instructionsEl = $('<span />')
 		$instructionsEl
 			.addClass('doodle-instructions')
 			.attr('data-codeword', '')
 			.attr('data-doodle-instructions', '')
-			.text(text)
+			.text(@model.get('instructions').toLowerCase())
+
+		console.log "@model.get('instructions').toLowerCase()"
+		console.log @model.get('instructions').toLowerCase()
 
 		colourScheme = if @model.get('colour_scheme') is 'light' then 'black' else 'white'
-		CodeWordTransitioner.prepare $instructionsEl, colourScheme
+		CodeWordTransitioner.prepare $instructionsEl, @colourScheme
+
+		console.log "$instructionsEl"
+		console.log $instructionsEl
 
 		$instructionsEl
 
@@ -127,20 +144,22 @@ class DoodlePageView extends AbstractViewPage
 		@model.setShortlink()
 
 		doodleInfoVars =
-			indexHTML                  : @model.get('indexHTML')
-			label_author               : @CD_CE().locale.get "doodle_label_author"
-			content_author             : @model.getAuthorHtml()
-			label_doodle_name          : @CD_CE().locale.get "doodle_label_doodle_name"
-			content_doodle_name        : @model.get('name')
-			label_description          : @CD_CE().locale.get "doodle_label_description"
-			content_description        : @model.get('description')
-			label_tags                 : @CD_CE().locale.get "doodle_label_tags"
-			content_tags               : @model.get('tags').join(', ')
-			label_interaction          : @CD_CE().locale.get "doodle_label_interaction"
-			content_interaction        : @_getInteractionContent()
-			label_share                : @CD_CE().locale.get "doodle_label_share"
-			share_url                  : @CD_CE().SITE_URL + '/' + @model.get('shortlink')
-			share_url_text             : @CD_CE().SITE_URL.replace('http://', '') + '/' + @model.get('shortlink')
+			indexHTML                   : @model.get('indexHTML')
+			label_author                : @CD_CE().locale.get "doodle_label_author"
+			content_author              : @model.getAuthorHtml()
+			label_doodle_name           : @CD_CE().locale.get "doodle_label_doodle_name"
+			content_doodle_name         : @model.get('name')
+			label_doodle_instructions   : @CD_CE().locale.get 'doodle_label_instructions'
+			content_doodle_instructions : @model.get('instructions') or @CD_CE().locale.get 'doodle_label_instructions_none'
+			label_description           : @CD_CE().locale.get "doodle_label_description"
+			content_description         : @model.get('description')
+			label_tags                  : @CD_CE().locale.get "doodle_label_tags"
+			content_tags                : @model.get('tags').join(', ')
+			label_interaction           : @CD_CE().locale.get "doodle_label_interaction"
+			content_interaction         : @_getInteractionContent()
+			label_share                 : @CD_CE().locale.get "doodle_label_share"
+			share_url                   : @CD_CE().SITE_URL + '/' + @model.get('shortlink')
+			share_url_text              : @CD_CE().SITE_URL.replace('http://', '') + '/' + @model.get('shortlink')
 
 		doodleInfoContent = _.template(@CD_CE().templates.get('doodle-info'))(doodleInfoVars)
 
