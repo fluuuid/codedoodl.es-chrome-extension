@@ -86,7 +86,7 @@ window._LOCALE_STRINGS = {
         "MISC": {
             "title": "Miscelleanous",
             "strings": {
-                "misc_portfolio_label": "portfolio"
+                "misc_portfolio_label": "website"
             }
         }
     }
