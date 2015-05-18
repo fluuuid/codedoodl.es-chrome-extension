@@ -7,12 +7,13 @@ class DoodlePageView extends AbstractViewPage
 	model    : null
 
 	colourScheme : null
+	refreshTimer : null
 
 	constructor : ->
 
-		console.log "i am hamm"
-
-		@templateVars = {}
+		@templateVars =
+			refresh_btn_title : @CD_CE().locale.get "doodle_refresh_btn_title"
+			random_btn_title  : @CD_CE().locale.get "doodle_random_btn_title"
 
 		super()
 
@@ -24,9 +25,8 @@ class DoodlePageView extends AbstractViewPage
 		@$infoContent  = @$el.find('[data-doodle-info]')
 		@$instructions = @$el.find('[data-doodle-instructions]')
 
-		@$mouse    = @$el.find('[data-indicator="mouse"]')
-		@$keyboard = @$el.find('[data-indicator="keyboard"]')
-		@$touch    = @$el.find('[data-indicator="touch"]')
+		@$refreshBtn = @$el.find('[data-doodle-refresh]')
+		@$randomBtn  = @$el.find('[data-doodle-random]')
 
 		null
 
@@ -34,7 +34,12 @@ class DoodlePageView extends AbstractViewPage
 
 		@CD_CE().appView.header[setting] @CD_CE().appView.header.EVENT_DOODLE_INFO_OPEN, @onInfoOpen
 		@CD_CE().appView.header[setting] @CD_CE().appView.header.EVENT_DOODLE_INFO_CLOSE, @onInfoClose
+
 		@$el[setting] 'click', '[data-share-btn]', @onShareBtnClick
+		@$infoContent[setting] 'click', @onInfoContentClick
+
+		@$refreshBtn[setting] 'click', @onRefreshBtnClick
+		@$randomBtn[setting] 'click', @onRandomBtnClick
 
 		null
 
@@ -67,8 +72,7 @@ class DoodlePageView extends AbstractViewPage
 			when 'shape-stream', 'shape-stream-light' then 'Move your mouse'
 			when 'box-physics' then 'Click and drag'
 			when 'tubes' then 'Click and hold'
-			else ''
-		console.log "YO, set the text #{text}"
+			else 'Drag around'
 		@model.set 'instructions': text
 		###
 		END TEMP!!!
@@ -78,9 +82,6 @@ class DoodlePageView extends AbstractViewPage
 
 		@$el.attr 'data-color-scheme', @model.get('colour_scheme')
 		@$frame.attr('src', '').removeClass('show')
-		@$mouse.attr 'disabled', !@model.get('interaction.mouse')
-		@$keyboard.attr 'disabled', !@model.get('interaction.keyboard')
-		@$touch.attr 'disabled', !@model.get('interaction.touch')
 
 		@colourScheme = if @model.get('colour_scheme') is 'light' then 'black' else 'white'
 
@@ -88,7 +89,7 @@ class DoodlePageView extends AbstractViewPage
 
 		null
 
-	showFrame : (removeEvent=true) =>
+	showFrame : (removeEvent=true, delay=null) =>
 
 		if removeEvent then @CD_CE().appView.transitioner.off @CD_CE().appView.transitioner.EVENT_TRANSITIONER_OUT_DONE, @showFrame
 
@@ -96,17 +97,23 @@ class DoodlePageView extends AbstractViewPage
 		SAMPLE_DIR = @model.get('SAMPLE_DIR')
 
 		@$frame.attr 'src', "http://source.codedoodl.es/sample_doodles/#{SAMPLE_DIR}/index.html"
-		@$frame.one 'load', @showDoodle
+		@$frame.one 'load', => @showDoodle delay
 
 		null
 
-	showDoodle : =>
+	showDoodle : (delay) =>
 
 		@$frame.addClass('show')
 		setTimeout =>
 			blankInstructions = @model.get('instructions').split('').map(-> return ' ').join('')
 			CodeWordTransitioner.to blankInstructions, @$instructions, @colourScheme
-		, 1000
+		, delay or 1000
+
+		null
+
+	hideDoodle : =>
+
+		@$frame.removeClass('show')
 
 		null
 
@@ -160,6 +167,9 @@ class DoodlePageView extends AbstractViewPage
 			label_share                 : @CD_CE().locale.get "doodle_label_share"
 			share_url                   : @CD_CE().SITE_URL + '/' + @model.get('shortlink')
 			share_url_text              : @CD_CE().SITE_URL.replace('http://', '') + '/' + @model.get('shortlink')
+			mouse_enabled               : @model.get('interaction.mouse')
+			keyboard_enabled            : @model.get('interaction.keyboard')
+			touch_enabled               : @model.get('interaction.touch')
 
 		doodleInfoContent = _.template(@CD_CE().templates.get('doodle-info'))(doodleInfoVars)
 
@@ -210,5 +220,29 @@ class DoodlePageView extends AbstractViewPage
 		desc = @supplantString @CD_CE().locale.get('doodle_share_text_tmpl'), vars, false
 
 		desc.replace(/&nbsp;/g, ' ')
+
+	onInfoContentClick : (e) =>
+
+		if e.target is @$infoContent[0] then @CD_CE().appView.header.hideDoodleInfo()
+
+		null
+
+	onRefreshBtnClick : =>
+
+		CodeWordTransitioner.in @$instructions, @colourScheme
+		@hideDoodle()
+
+		clearTimeout @refreshTimer
+		@refreshTimer = setTimeout =>
+			@showFrame false, 2000
+		, 1000
+
+		null
+
+	onRandomBtnClick : =>
+
+		window.location.reload()
+
+		null
 
 module.exports = DoodlePageView

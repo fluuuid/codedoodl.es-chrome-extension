@@ -38,12 +38,27 @@ class DoodleModel extends AbstractModel
         "SAMPLE_DIR" : ""
 
     SAMPLE_DOODLES : [
-            'shape-stream',
-            'shape-stream-light',
-            'box-physics',
-            'stars',
-            'tubes'
-        ]
+        'shape-stream',
+        'shape-stream-light',
+        'box-physics',
+        'stars',
+        'tubes'
+    ]
+
+    constructor : ->
+
+        super
+
+        ###
+        GET_DUMMY_DOODLE_SCHTUFF
+        ###
+        attrs = {}
+        sample = _.shuffle(@SAMPLE_DOODLES)[0]
+        attrs.SAMPLE_DIR = sample
+        attrs.colour_scheme = if sample is 'shape-stream-light' then 'light' else 'dark'
+        @set attrs
+
+        return null
 
     _filterAttrs : (attrs) =>
 
@@ -58,13 +73,6 @@ class DoodleModel extends AbstractModel
             attrs.scrambled =
                 name        : CodeWordTransitioner.getScrambledWord attrs.name
                 author_name : CodeWordTransitioner.getScrambledWord attrs.author.name
-
-        ###
-        GET_DUMMY_DOODLE_SCHTUFF
-        ###
-        sample = _.shuffle(@SAMPLE_DOODLES)[0]
-        attrs.SAMPLE_DIR = sample
-        attrs.colour_scheme = if sample is 'shape-stream-light' then 'light' else 'dark'
 
         attrs
 

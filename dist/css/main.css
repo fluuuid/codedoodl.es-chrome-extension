@@ -1230,7 +1230,7 @@ textarea.placeholder {
   top: 8px;
   right: 0;
   height: 2px;
-  width: 10px;
+  width: 7px;
   -webkit-transform-origin: right center;
       -ms-transform-origin: right center;
           transform-origin: right center;
@@ -1438,51 +1438,51 @@ textarea.placeholder {
 .page-doodle[data-color-scheme="light"] .doodle-instructions {
   color: #111111;
 }
-/* line 26, ../../src/sass/views/pages/_doodle.scss */
-.page-doodle[data-color-scheme="light"] .interaction-indicators .indicator:after {
-  background: #EB423E;
-}
-/* line 30, ../../src/sass/views/pages/_doodle.scss */
-.page-doodle[data-color-scheme="light"] .interaction-indicators .indicator svg {
-  fill: #111111;
-}
-/* line 36, ../../src/sass/views/pages/_doodle.scss */
+/* line 22, ../../src/sass/views/pages/_doodle.scss */
 .page-doodle[data-color-scheme="light"] .nav-arrow .nav-arrow__inner,
 .page-doodle[data-color-scheme="light"] .nav-arrow:after,
 .page-doodle[data-color-scheme="light"] .nav-arrow:before {
   background: #111111;
 }
-/* line 43, ../../src/sass/views/pages/_doodle.scss */
+/* line 30, ../../src/sass/views/pages/_doodle.scss */
+.page-doodle[data-color-scheme="light"] .doodle-control:after, .page-doodle[data-color-scheme="light"] .doodle-control:before {
+  background: #111111;
+}
+/* line 35, ../../src/sass/views/pages/_doodle.scss */
+.page-doodle[data-color-scheme="light"] .doodle-control svg {
+  fill: #111111;
+}
+/* line 41, ../../src/sass/views/pages/_doodle.scss */
 .page-doodle[data-color-scheme="dark"] {
   background: #111111;
 }
-/* line 46, ../../src/sass/views/pages/_doodle.scss */
+/* line 44, ../../src/sass/views/pages/_doodle.scss */
 .page-doodle[data-color-scheme="dark"] .doodle-frame {
   background: #111111;
 }
-/* line 52, ../../src/sass/views/pages/_doodle.scss */
+/* line 50, ../../src/sass/views/pages/_doodle.scss */
 .page-doodle[data-color-scheme="dark"] .preloader-dots .dot {
   background: #fff;
 }
-/* line 57, ../../src/sass/views/pages/_doodle.scss */
+/* line 55, ../../src/sass/views/pages/_doodle.scss */
 .page-doodle[data-color-scheme="dark"] .doodle-instructions {
   color: #fff;
 }
-/* line 65, ../../src/sass/views/pages/_doodle.scss */
-.page-doodle[data-color-scheme="dark"] .interaction-indicators .indicator:after {
-  background: #395CAA;
-}
-/* line 69, ../../src/sass/views/pages/_doodle.scss */
-.page-doodle[data-color-scheme="dark"] .interaction-indicators .indicator svg {
-  fill: #fff;
-}
-/* line 75, ../../src/sass/views/pages/_doodle.scss */
+/* line 59, ../../src/sass/views/pages/_doodle.scss */
 .page-doodle[data-color-scheme="dark"] .nav-arrow .nav-arrow__inner,
 .page-doodle[data-color-scheme="dark"] .nav-arrow:after,
 .page-doodle[data-color-scheme="dark"] .nav-arrow:before {
   background: #fff;
 }
-/* line 82, ../../src/sass/views/pages/_doodle.scss */
+/* line 67, ../../src/sass/views/pages/_doodle.scss */
+.page-doodle[data-color-scheme="dark"] .doodle-control:after, .page-doodle[data-color-scheme="dark"] .doodle-control:before {
+  background: #fff;
+}
+/* line 72, ../../src/sass/views/pages/_doodle.scss */
+.page-doodle[data-color-scheme="dark"] .doodle-control svg {
+  fill: #fff;
+}
+/* line 78, ../../src/sass/views/pages/_doodle.scss */
 .page-doodle .doodle-frame {
   position: absolute;
   top: 0;
@@ -1495,21 +1495,22 @@ textarea.placeholder {
   overflow: hidden;
   transition: all 0.3s cubic-bezier(1, 0, 0, 1);
 }
-/* line 94, ../../src/sass/views/pages/_doodle.scss */
+/* line 90, ../../src/sass/views/pages/_doodle.scss */
 .page-doodle .doodle-frame.show {
   visibility: visible;
   opacity: 1;
 }
-/* line 100, ../../src/sass/views/pages/_doodle.scss */
+/* line 96, ../../src/sass/views/pages/_doodle.scss */
 .page-doodle .preloader-dots {
   z-index: 0;
 }
-/* line 104, ../../src/sass/views/pages/_doodle.scss */
+/* line 100, ../../src/sass/views/pages/_doodle.scss */
 .page-doodle .doodle-instructions {
   z-index: 2;
 }
-/* line 108, ../../src/sass/views/pages/_doodle.scss */
+/* line 104, ../../src/sass/views/pages/_doodle.scss */
 .page-doodle .doodle-instructions {
+  pointer-events: none;
   position: absolute;
   top: 47%;
   left: 50%;
@@ -1520,39 +1521,102 @@ textarea.placeholder {
   font-size: 1.2rem;
   font-family: "monostena", "Consolas", "monospace";
 }
-/* line 116, ../../src/sass/views/pages/_doodle.scss */
+/* line 113, ../../src/sass/views/pages/_doodle.scss */
 .page-doodle .doodle-instructions [data-codetext-char] {
   border-bottom: none !important;
 }
-/* line 123, ../../src/sass/views/pages/_doodle.scss */
+/* line 120, ../../src/sass/views/pages/_doodle.scss */
+.page-doodle .footer-nav .arrow,
+.page-doodle .footer-nav .arrow:after,
+.page-doodle .footer-nav .arrow:before {
+  transition: all 0.3s cubic-bezier(1, 0, 0, 1);
+}
+/* line 126, ../../src/sass/views/pages/_doodle.scss */
 .page-doodle .footer-nav .arrow {
   position: fixed;
   z-index: 2;
   bottom: 25px;
   display: none;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(1, 0, 0, 1);
 }
-/* line 133, ../../src/sass/views/pages/_doodle.scss */
+/* line 135, ../../src/sass/views/pages/_doodle.scss */
 .no-touch .page-doodle .footer-nav .arrow:hover {
   width: 40px;
 }
 /* line 138, ../../src/sass/views/pages/_doodle.scss */
+.no-touch .page-doodle .footer-nav .arrow:hover:after, .no-touch .page-doodle .footer-nav .arrow:hover:before {
+  width: 10px;
+}
+/* line 145, ../../src/sass/views/pages/_doodle.scss */
 .page-doodle .footer-nav .arrow.show {
   display: block;
 }
-/* line 142, ../../src/sass/views/pages/_doodle.scss */
+/* line 149, ../../src/sass/views/pages/_doodle.scss */
 .page-doodle .footer-nav .arrow.arrow-left {
   left: 25px;
   -webkit-transform: rotate(180deg);
       -ms-transform: rotate(180deg);
           transform: rotate(180deg);
 }
-/* line 147, ../../src/sass/views/pages/_doodle.scss */
+/* line 154, ../../src/sass/views/pages/_doodle.scss */
 .page-doodle .footer-nav .arrow.arrow-right {
   right: 25px;
 }
-/* line 153, ../../src/sass/views/pages/_doodle.scss */
+/* line 160, ../../src/sass/views/pages/_doodle.scss */
+.page-doodle .doodle-control {
+  position: fixed;
+  bottom: 19px;
+  width: 30px;
+  height: 34px;
+  z-index: 2;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(1, 0, 0, 1);
+}
+/* line 169, ../../src/sass/views/pages/_doodle.scss */
+.page-doodle .doodle-control:after, .page-doodle .doodle-control:before {
+  content: '';
+  position: absolute;
+  transition: all 0.3s cubic-bezier(1, 0, 0, 1);
+  height: 2px;
+  width: 0;
+}
+/* line 178, ../../src/sass/views/pages/_doodle.scss */
+.page-doodle .doodle-control:after {
+  bottom: 0;
+  left: 0;
+}
+/* line 183, ../../src/sass/views/pages/_doodle.scss */
+.page-doodle .doodle-control:before {
+  top: 0;
+  right: 0;
+}
+/* line 188, ../../src/sass/views/pages/_doodle.scss */
+.page-doodle .doodle-control.doodle-control-refresh {
+  right: 50%;
+  margin-right: 10px;
+}
+/* line 193, ../../src/sass/views/pages/_doodle.scss */
+.page-doodle .doodle-control.doodle-control-random {
+  left: 50%;
+  margin-left: 10px;
+}
+/* line 197, ../../src/sass/views/pages/_doodle.scss */
+.page-doodle .doodle-control.doodle-control-random svg {
+  -webkit-transform: scale(2);
+      -ms-transform: scale(2);
+          transform: scale(2);
+}
+/* line 206, ../../src/sass/views/pages/_doodle.scss */
+.no-touch .page-doodle .doodle-control:hover:after, .no-touch .page-doodle .doodle-control:hover:before {
+  width: 100%;
+}
+/* line 213, ../../src/sass/views/pages/_doodle.scss */
+.page-doodle .doodle-control svg {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+/* line 220, ../../src/sass/views/pages/_doodle.scss */
 .page-doodle .interaction-indicators {
   display: inline-block;
   position: fixed;
@@ -1564,12 +1628,12 @@ textarea.placeholder {
   z-index: 3;
   pointer-events: none;
 }
-/* line 162, ../../src/sass/views/pages/_doodle.scss */
+/* line 229, ../../src/sass/views/pages/_doodle.scss */
 .page-doodle .interaction-indicators .indicator {
   position: relative;
   margin-right: 20px;
 }
-/* line 166, ../../src/sass/views/pages/_doodle.scss */
+/* line 233, ../../src/sass/views/pages/_doodle.scss */
 .page-doodle .interaction-indicators .indicator:after {
   content: '';
   display: none;
@@ -1580,81 +1644,89 @@ textarea.placeholder {
       -ms-transform: rotate(45deg);
           transform: rotate(45deg);
 }
-/* line 177, ../../src/sass/views/pages/_doodle.scss */
+/* line 244, ../../src/sass/views/pages/_doodle.scss */
 .page-doodle .interaction-indicators .indicator[disabled]:after {
   display: block;
 }
-/* line 182, ../../src/sass/views/pages/_doodle.scss */
+/* line 249, ../../src/sass/views/pages/_doodle.scss */
 .page-doodle .interaction-indicators .indicator svg {
   fill: #fff;
 }
-/* line 186, ../../src/sass/views/pages/_doodle.scss */
+/* line 253, ../../src/sass/views/pages/_doodle.scss */
 .page-doodle .interaction-indicators .indicator:last-child {
   margin-right: 0;
 }
-/* line 191, ../../src/sass/views/pages/_doodle.scss */
+/* line 258, ../../src/sass/views/pages/_doodle.scss */
 .page-doodle .interaction-indicators .indicator-mouse {
   top: 8px;
 }
-/* line 194, ../../src/sass/views/pages/_doodle.scss */
+/* line 261, ../../src/sass/views/pages/_doodle.scss */
 .page-doodle .interaction-indicators .indicator-mouse:after {
   top: -7px;
   left: 6px;
 }
-/* line 199, ../../src/sass/views/pages/_doodle.scss */
+/* line 266, ../../src/sass/views/pages/_doodle.scss */
 .page-doodle .interaction-indicators .indicator-mouse svg {
   width: 50px;
 }
-/* line 206, ../../src/sass/views/pages/_doodle.scss */
+/* line 273, ../../src/sass/views/pages/_doodle.scss */
 .page-doodle .interaction-indicators .indicator-keyboard:after {
   top: 0;
   left: -7px;
 }
-/* line 211, ../../src/sass/views/pages/_doodle.scss */
+/* line 278, ../../src/sass/views/pages/_doodle.scss */
 .page-doodle .interaction-indicators .indicator-keyboard svg {
   width: 27px;
 }
-/* line 216, ../../src/sass/views/pages/_doodle.scss */
+/* line 283, ../../src/sass/views/pages/_doodle.scss */
 .page-doodle .interaction-indicators .indicator-touch {
   top: 7px;
 }
-/* line 219, ../../src/sass/views/pages/_doodle.scss */
+/* line 286, ../../src/sass/views/pages/_doodle.scss */
 .page-doodle .interaction-indicators .indicator-touch:after {
   top: -7px;
   left: 7px;
 }
-/* line 224, ../../src/sass/views/pages/_doodle.scss */
+/* line 291, ../../src/sass/views/pages/_doodle.scss */
 .page-doodle .interaction-indicators .indicator-touch svg {
   width: 50px;
 }
-/* line 234, ../../src/sass/views/pages/_doodle.scss */
+/* line 301, ../../src/sass/views/pages/_doodle.scss */
 .page-doodle.show-info .footer-nav .arrow {
   display: none;
 }
-/* line 243, ../../src/sass/views/pages/_doodle.scss */
+/* line 310, ../../src/sass/views/pages/_doodle.scss */
 .page-doodle.show-info .interaction-indicators .indicator:after {
   background: #395CAA;
 }
-/* line 247, ../../src/sass/views/pages/_doodle.scss */
+/* line 314, ../../src/sass/views/pages/_doodle.scss */
 .page-doodle.show-info .interaction-indicators .indicator svg {
   fill: #EB423E;
 }
-/* line 253, ../../src/sass/views/pages/_doodle.scss */
+/* line 320, ../../src/sass/views/pages/_doodle.scss */
+.page-doodle.show-info .doodle-control {
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transform: translate(-5px, 0);
+      -ms-transform: translate(-5px, 0);
+          transform: translate(-5px, 0);
+}
+/* line 326, ../../src/sass/views/pages/_doodle.scss */
 .page-doodle.show-info .subpage-info,
 .page-doodle.show-info .subpage-info-pane {
   -webkit-transform: none;
       -ms-transform: none;
           transform: none;
 }
-/* line 258, ../../src/sass/views/pages/_doodle.scss */
+/* line 331, ../../src/sass/views/pages/_doodle.scss */
 .page-doodle.show-info .subpage-info {
   transition-delay: 0.03s;
 }
-/* line 262, ../../src/sass/views/pages/_doodle.scss */
+/* line 335, ../../src/sass/views/pages/_doodle.scss */
 .page-doodle.show-info .subpage-info-pane {
   transition-delay: 0s;
 }
-/* line 267, ../../src/sass/views/pages/_doodle.scss */
+/* line 340, ../../src/sass/views/pages/_doodle.scss */
 .page-doodle .subpage-info,
 .page-doodle .subpage-info-pane {
   position: absolute;
@@ -1669,18 +1741,18 @@ textarea.placeholder {
           transform: translate3d(100%, 0, 0);
   transition: all 0.5s cubic-bezier(1, 0, 0, 1);
 }
-/* line 279, ../../src/sass/views/pages/_doodle.scss */
+/* line 352, ../../src/sass/views/pages/_doodle.scss */
 .page-doodle .subpage-info {
   background: #F1F1F3;
   color: #395CAA;
   z-index: 2;
 }
-/* line 284, ../../src/sass/views/pages/_doodle.scss */
+/* line 357, ../../src/sass/views/pages/_doodle.scss */
 .page-doodle .subpage-info a {
   color: #395CAA;
   border-color: rgba(57, 92, 170, 0.23);
 }
-/* line 290, ../../src/sass/views/pages/_doodle.scss */
+/* line 363, ../../src/sass/views/pages/_doodle.scss */
 .no-touch .page-doodle .subpage-info a:hover {
   border-width: 0;
   -webkit-animation: info-link-blink 0.1s 1;
@@ -1690,17 +1762,17 @@ textarea.placeholder {
   -webkit-animation-fill-mode: forwards;
           animation-fill-mode: forwards;
 }
-/* line 299, ../../src/sass/views/pages/_doodle.scss */
+/* line 372, ../../src/sass/views/pages/_doodle.scss */
 .page-doodle .subpage-info .col-2 {
   font-family: "monostenf", "Consolas", "monospace";
 }
-/* line 303, ../../src/sass/views/pages/_doodle.scss */
+/* line 376, ../../src/sass/views/pages/_doodle.scss */
 .page-doodle .subpage-info .subpage-content {
   padding: 25px 0;
   position: relative;
   top: 55%;
 }
-/* line 308, ../../src/sass/views/pages/_doodle.scss */
+/* line 381, ../../src/sass/views/pages/_doodle.scss */
 .page-doodle .subpage-info .subpage-content:after, .page-doodle .subpage-info .subpage-content:before {
   content: '';
   position: absolute;
@@ -1710,21 +1782,21 @@ textarea.placeholder {
   background: #395CAA;
   z-index: 2;
 }
-/* line 319, ../../src/sass/views/pages/_doodle.scss */
+/* line 392, ../../src/sass/views/pages/_doodle.scss */
 .page-doodle .subpage-info .subpage-content:after {
   top: 0;
 }
-/* line 323, ../../src/sass/views/pages/_doodle.scss */
+/* line 396, ../../src/sass/views/pages/_doodle.scss */
 .page-doodle .subpage-info .subpage-content:before {
   bottom: 0;
 }
-/* line 329, ../../src/sass/views/pages/_doodle.scss */
+/* line 402, ../../src/sass/views/pages/_doodle.scss */
 .page-doodle .subpage-info-pane {
   background: #EB423E;
   z-index: 1;
   transition-delay: 0.03s;
 }
-/* line 335, ../../src/sass/views/pages/_doodle.scss */
+/* line 408, ../../src/sass/views/pages/_doodle.scss */
 .page-doodle .doodle-preview {
   position: absolute;
   top: -190px;
@@ -1736,7 +1808,7 @@ textarea.placeholder {
           transform: translate3d(150px, 0, 0);
   transition: all 0.7s cubic-bezier(0.455, 0.03, 0.515, 0.955);
 }
-/* line 344, ../../src/sass/views/pages/_doodle.scss */
+/* line 417, ../../src/sass/views/pages/_doodle.scss */
 .page-doodle .doodle-preview-thumb-holder {
   position: absolute;
   width: 200px;
@@ -1755,7 +1827,7 @@ textarea.placeholder {
   border-radius: 50%;
   overflow: hidden;
 }
-/* line 359, ../../src/sass/views/pages/_doodle.scss */
+/* line 432, ../../src/sass/views/pages/_doodle.scss */
 .page-doodle .doodle-preview-thumb-cover,
 .page-doodle .doodle-preview-thumb {
   display: block;
@@ -1774,12 +1846,12 @@ textarea.placeholder {
   opacity: 0;
   visibility: hidden;
 }
-/* line 374, ../../src/sass/views/pages/_doodle.scss */
+/* line 447, ../../src/sass/views/pages/_doodle.scss */
 .page-doodle .doodle-preview-thumb-cover {
   z-index: 1;
   background: #395CAA;
 }
-/* line 379, ../../src/sass/views/pages/_doodle.scss */
+/* line 452, ../../src/sass/views/pages/_doodle.scss */
 .page-doodle .doodle-preview-thumb {
   -webkit-filter: brightness(0.8) contrast(2.5);
           filter: brightness(0.8) contrast(2.5);
@@ -1787,7 +1859,7 @@ textarea.placeholder {
   background-size: cover;
   z-index: 0;
 }
-/* line 386, ../../src/sass/views/pages/_doodle.scss */
+/* line 459, ../../src/sass/views/pages/_doodle.scss */
 .page-doodle .doodle-preview-line {
   position: absolute;
   z-index: 1;
@@ -1797,7 +1869,7 @@ textarea.placeholder {
   width: 0;
   transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
 }
-/* line 396, ../../src/sass/views/pages/_doodle.scss */
+/* line 469, ../../src/sass/views/pages/_doodle.scss */
 .page-doodle .doodle-preview-number {
   position: absolute;
   top: -15px;
@@ -1808,21 +1880,21 @@ textarea.placeholder {
   z-index: 3;
   color: #395CAA;
 }
-/* line 405, ../../src/sass/views/pages/_doodle.scss */
+/* line 478, ../../src/sass/views/pages/_doodle.scss */
 .page-doodle .doodle-preview-number .index-char-nonzero {
   font-family: "monostena", "Consolas", "monospace";
 }
-/* line 409, ../../src/sass/views/pages/_doodle.scss */
+/* line 482, ../../src/sass/views/pages/_doodle.scss */
 .page-doodle .doodle-preview-number .index-char-zero {
   font-family: "monostenb", "Consolas", "monospace";
 }
-/* line 416, ../../src/sass/views/pages/_doodle.scss */
+/* line 489, ../../src/sass/views/pages/_doodle.scss */
 .page-doodle.show-info .doodle-preview {
   -webkit-transform: none;
       -ms-transform: none;
           transform: none;
 }
-/* line 420, ../../src/sass/views/pages/_doodle.scss */
+/* line 493, ../../src/sass/views/pages/_doodle.scss */
 .page-doodle.show-info .doodle-preview-thumb-holder,
 .page-doodle.show-info .doodle-preview-thumb-cover,
 .page-doodle.show-info .doodle-preview-thumb,
@@ -1830,24 +1902,24 @@ textarea.placeholder {
   transition-delay: 0.7s;
   transition-timing-function: cubic-bezier(1, 0, 0, 1);
 }
-/* line 428, ../../src/sass/views/pages/_doodle.scss */
+/* line 501, ../../src/sass/views/pages/_doodle.scss */
 .page-doodle.show-info .doodle-preview-thumb-holder {
   border-radius: 6px;
   -webkit-transform: scale(0.75) rotate(45deg) translate(-50%, -50%);
       -ms-transform: scale(0.75) rotate(45deg) translate(-50%, -50%);
           transform: scale(0.75) rotate(45deg) translate(-50%, -50%);
 }
-/* line 433, ../../src/sass/views/pages/_doodle.scss */
+/* line 506, ../../src/sass/views/pages/_doodle.scss */
 .page-doodle.show-info .doodle-preview-thumb-cover {
   opacity: 0.5;
   visibility: visible;
 }
-/* line 438, ../../src/sass/views/pages/_doodle.scss */
+/* line 511, ../../src/sass/views/pages/_doodle.scss */
 .page-doodle.show-info .doodle-preview-thumb {
   opacity: 1;
   visibility: visible;
 }
-/* line 443, ../../src/sass/views/pages/_doodle.scss */
+/* line 516, ../../src/sass/views/pages/_doodle.scss */
 .page-doodle.show-info .doodle-preview-line {
   width: 200px;
 }

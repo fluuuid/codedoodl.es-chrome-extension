@@ -29,21 +29,28 @@ class Nav extends AbstractView
 
     changeView: (area, sub, params) =>
 
-        # console.log "area",area
-        # console.log "sub",sub
-        # console.log "params",params
+        console.log "area",area
+        console.log "sub",sub
+        console.log "params",params
 
         @previous = @current
         @current  = area : area, sub : sub
 
-        if @previous.area and @previous.area is @current.area
-            @trigger Nav.EVENT_CHANGE_SUB_VIEW, @current
-        else
-            @trigger Nav.EVENT_CHANGE_VIEW, @previous, @current
-            @trigger Nav.EVENT_CHANGE_SUB_VIEW, @current
+        @trigger Nav.EVENT_CHANGE_VIEW, @previous, @current
+        @trigger Nav.EVENT_CHANGE_SUB_VIEW, @current
 
         if @CD_CE().appView.modalManager.isOpen() then @CD_CE().appView.modalManager.hideOpenModal()
 
+        # @trackPageView()
+
         null
+
+    # trackPageView : =>
+
+    #     return unless window.ga and @changeViewCount > 1
+
+    #     ga 'send', 'pageview', 'page' : window.location.href.split(@CD().BASE_URL)[1] or '/'
+
+    #     null
 
 module.exports = Nav

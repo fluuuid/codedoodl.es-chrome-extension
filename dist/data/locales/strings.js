@@ -66,6 +66,8 @@ window._LOCALE_STRINGS = {
         "DOODLE_PAGE": {
             "title": "Doodle page",
             "strings": {
+                "doodle_refresh_btn_title": "Reload this doodle",
+                "doodle_random_btn_title": "Show random doodle",
                 "doodle_label_author": "Author",
                 "doodle_label_doodle_name": "Doodle",
                 "doodle_label_instructions": "Instructions",
