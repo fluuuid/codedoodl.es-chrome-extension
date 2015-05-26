@@ -237,6 +237,7 @@
                 width: 40px;
                 height: 2px;
                 transform: rotate(45deg);
+                background: $cd-blue;
             }
 
             &[disabled] {
@@ -247,7 +248,7 @@
             }
 
             svg {
-                fill: #fff;
+                fill: $cd-red;
             }
 
             &:last-child {
@@ -300,20 +301,6 @@
 
             .arrow {
                 display: none;
-            }
-        }
-
-        .interaction-indicators {
-
-            .indicator {
-
-                &:after {
-                    background: $cd-blue;
-                }
-
-                svg {
-                    fill: $cd-red;
-                }
             }
         }
 
