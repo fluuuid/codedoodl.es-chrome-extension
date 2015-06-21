@@ -65,20 +65,6 @@ class DoodlePageView extends AbstractViewPage
 
 	setupUI : =>
 
-		###
-		TEMP!!!
-		###
-		text = switch @model.get('SAMPLE_DIR')
-			when 'square-stream' then 'Click, hold, release'
-			when 'shape-stream-light' then 'Move your mouse'
-			when 'box-physics' then 'Click and drag'
-			when 'tubes' then 'Click and hold'
-			else 'Drag around'
-		@model.set 'instructions': text
-		###
-		END TEMP!!!
-		###
-
 		@$infoContent.html @getDoodleInfoContent()
 
 		@$el.attr 'data-color-scheme', @model.get('colour_scheme')
@@ -94,10 +80,7 @@ class DoodlePageView extends AbstractViewPage
 
 		if removeEvent then @CD_CE().appView.transitioner.off @CD_CE().appView.transitioner.EVENT_TRANSITIONER_OUT_DONE, @showFrame
 
-		# TEMP, OBVZ
-		SAMPLE_DIR = @model.get('SAMPLE_DIR')
-
-		@$frame.attr 'src', "http://source.codedoodl.es/sample_doodles/#{SAMPLE_DIR}/index.html"
+		@$frame.attr 'src', "#{@CD_CE().DOODLES_URL}/#{@model.get('slug')}/index.html"
 		@$frame.one 'load', => @showDoodle delay
 
 		null
@@ -148,11 +131,9 @@ class DoodlePageView extends AbstractViewPage
 
 	getDoodleInfoContent : =>
 
-		# no need to do this for every doodle - only do it if we view the info pane for a particular doodle
-		@model.setShortlink()
-
 		doodleInfoVars =
 			indexHTML                   : @model.get('indexHTML')
+			thumb                       : @CD_CE().DOODLES_URL + '/' + @model.get('slug') + '/thumb.jpg'
 			label_author                : @CD_CE().locale.get "doodle_label_author"
 			content_author              : @model.getAuthorHtml()
 			label_doodle_name           : @CD_CE().locale.get "doodle_label_doodle_name"
@@ -166,8 +147,8 @@ class DoodlePageView extends AbstractViewPage
 			label_interaction           : @CD_CE().locale.get "doodle_label_interaction"
 			content_interaction         : @_getInteractionContent()
 			label_share                 : @CD_CE().locale.get "doodle_label_share"
-			share_url                   : @CD_CE().SITE_URL + '/' + @model.get('shortlink')
-			share_url_text              : @CD_CE().SITE_URL.replace('http://', '') + '/' + @model.get('shortlink')
+			share_url                   : @CD_CE().SITE_URL + '/' + @model.get('id')
+			share_url_text              : @CD_CE().SITE_URL.replace('http://', '') + '/' + @model.get('id')
 			mouse_enabled               : @model.get('interaction.mouse')
 			keyboard_enabled            : @model.get('interaction.keyboard')
 			touch_enabled               : @model.get('interaction.touch')
@@ -203,7 +184,7 @@ class DoodlePageView extends AbstractViewPage
 		e.preventDefault()
 
 		shareMethod = $(e.currentTarget).attr('data-share-btn')
-		url         = if shareMethod is 'facebook' then @CD_CE().SITE_URL + '/' + @model.get('shortlink') else ' '
+		url         = if shareMethod is 'facebook' then @CD_CE().SITE_URL + '/' + @model.get('id') else ' '
 		desc        = @getShareDesc()
 
 		@CD_CE().share[shareMethod] url, desc
@@ -215,7 +196,7 @@ class DoodlePageView extends AbstractViewPage
 		vars =
 			doodle_name   : @model.get 'name'
 			doodle_author : if @model.get('author.twitter') then "@#{@model.get('author.twitter')}" else @model.get('author.name')
-			share_url     : @CD_CE().SITE_URL + '/' + @model.get('shortlink')
+			share_url     : @CD_CE().SITE_URL + '/' + @model.get('id')
 			doodle_tags   : _.map(@model.get('tags'), (tag) -> '#' + tag).join(' ')
 
 		desc = @supplantString @CD_CE().locale.get('doodle_share_text_tmpl'), vars, false

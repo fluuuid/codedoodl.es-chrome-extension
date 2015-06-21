@@ -90,7 +90,7 @@
                 <span class="doodle-preview">
                     <span class="doodle-preview-thumb-holder">
                         <span class="doodle-preview-thumb-cover"></span>
-                        <span class="doodle-preview-thumb" style="background-image: url(https://placeimg.com/300/300/any?time=<%= Math.random()*9999 %>)"></span>
+                        <span class="doodle-preview-thumb" style="background-image: url(<%= thumb %>)"></span>
                     </span>
                     <span class="doodle-preview-number">
                         <%= indexHTML %>

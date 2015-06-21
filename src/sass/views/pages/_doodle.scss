@@ -84,7 +84,6 @@
         z-index: 1;
         visibility: hidden;
         opacity: 0;
-        overflow: hidden;
         transition: all .3s $easeInOutExpo;
 
         &.show {
@@ -109,9 +108,14 @@
         transform: translate(-50%, -50%);
         @include font-size(1.2);
         font-family: $ff-monosten-a;
+        text-align: center;
 
         [data-codetext-char] {
             border-bottom: none !important;
+        }
+
+        @include respond-to(medium) {
+            max-width: 70%;
         }
     }
 
@@ -300,7 +304,16 @@
         .footer-nav {
 
             .arrow {
-                display: none;
+                opacity: 0;
+                visibility: hidden;
+
+                &.arrow-left {
+                    transform: translate(-5px, 0) rotate(180deg);
+                }
+
+                &.arrow-right {
+                    transform: translate(-5px, 0);
+                }
             }
         }
 
@@ -341,9 +354,19 @@
         color: $cd-blue;
         z-index: 2;
 
+        @include respond-to(small) {
+            padding: 220px 65px 20px 70px;
+            overflow: auto;
+            -webkit-overflow-scrolling: touch;
+
+            .interaction-indicators {
+                display: none;
+            }
+        }
+
         a {
             color: $cd-blue;
-            border-color: rgba(57, 92, 170, 0.23);
+            border-color: $cd-red;
 
             .no-touch & {
 
@@ -352,6 +375,7 @@
                     animation: info-link-blink 0.1s 1;
                     animation-timing-function: steps(1, end);
                     animation-fill-mode: forwards;
+                    color: $bg-offwhite;
                 }
             }
         }
@@ -382,6 +406,13 @@
 
             &:before {
                 bottom: 0;
+            }
+
+            @include respond-to(small) {
+                top: auto;
+                transform: translate(-50%, 0);
+                overflow: visible;
+                max-height: none;
             }
         }
     }
@@ -438,7 +469,6 @@
 
     .doodle-preview-thumb {
         filter: brightness(0.8) contrast(2.5);
-        background: url(https://placeimg.com/300/300/any) no-repeat center center;
         background-size: cover;
         z-index: 0;
     }
@@ -474,7 +504,7 @@
     &.show-info {
 
         .doodle-preview {
-            transform: none;
+            transform: translateZ(0);
         }
 
         .doodle-preview-thumb-holder,
@@ -508,11 +538,11 @@
 
 @keyframes info-link-blink {
     0%, 100% {
-        background: $cd-blue;
+        background: $cd-red;
         color: $bg-offwhite;
     }
     50% {
         background: $bg-offwhite;
-        color: $cd-blue;
+        color: $cd-red;
     }
 }
