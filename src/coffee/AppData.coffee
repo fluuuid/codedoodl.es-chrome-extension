@@ -7,7 +7,7 @@ class AppData extends AbstractData
 
     callback : null
 
-    DOODLE_CACHE_EXPIRES : 99999999999999999
+    DOODLE_CACHE_DURATION : (((1000 * 60) * 60) * 24) # 24hrs
 
     constructor : (@callback) ->
 
@@ -29,7 +29,7 @@ class AppData extends AbstractData
             cachedDoodles = []
             (if index isnt 'lastUpdated' then cachedDoodles.push(JSON.parse(data))) for index, data of cachedData
 
-            if ((Date.now() - cachedData.lastUpdated) > @DOODLE_CACHE_EXPIRES)
+            if ((Date.now() - cachedData.lastUpdated) > @DOODLE_CACHE_DURATION)
                 @fetchDoodles cachedDoodles
             else
                 @setDoodles(cachedDoodles).setActiveDoodle()
