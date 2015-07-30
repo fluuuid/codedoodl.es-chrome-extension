@@ -1,5 +1,6 @@
-AbstractViewPage = require '../AbstractViewPage'
+AbstractViewPage     = require '../AbstractViewPage'
 CodeWordTransitioner = require '../../utils/CodeWordTransitioner'
+MediaQueries         = require '../../utils/MediaQueries'
 
 class DoodlePageView extends AbstractViewPage
 
@@ -8,6 +9,11 @@ class DoodlePageView extends AbstractViewPage
 
 	colourScheme : null
 	refreshTimer : null
+
+	infoScroller : null
+
+	MIN_PADDING_TOP    : 230
+	MIN_PADDING_BOTTOM : 85
 
 	constructor : ->
 
@@ -32,14 +38,22 @@ class DoodlePageView extends AbstractViewPage
 
 	setListeners : (setting) =>
 
+		@CD_CE().appView[setting] @CD_CE().appView.EVENT_UPDATE_DIMENSIONS, @onResize
+
 		@CD_CE().appView.header[setting] @CD_CE().appView.header.EVENT_DOODLE_INFO_OPEN, @onInfoOpen
 		@CD_CE().appView.header[setting] @CD_CE().appView.header.EVENT_DOODLE_INFO_CLOSE, @onInfoClose
 
 		@$el[setting] 'click', '[data-share-btn]', @onShareBtnClick
-		@$infoContent[setting] 'click', @onInfoContentClick
+		# @$infoContent[setting] 'click', @onInfoContentClick
 
 		@$refreshBtn[setting] 'click', @onRefreshBtnClick
 		@$randomBtn[setting] 'click', @onRandomBtnClick
+
+		null
+
+	onResize : =>
+
+		@setupInfoDims()
 
 		null
 
@@ -73,6 +87,66 @@ class DoodlePageView extends AbstractViewPage
 		@colourScheme = if @model.get('colour_scheme') is 'light' then 'black' else 'white'
 
 		@setupInstructions()
+
+		null
+
+	setupInfoDims : =>
+
+		@$doodleInfoContent = @$el.find('[data-doodle-info-content]')
+		@$doodleInfoContent.removeClass('enable-overflow').css({ top: ''})
+			.find('.doodle-info-inner').css({ maxHeight: '' })
+
+		contentOffset = @$doodleInfoContent.offset().top
+
+		requiresOverflow = (contentOffset <= @MIN_PADDING_TOP) and (@CD_CE().appView.dims.w >= 750) # this 750 is from the grid breakpoints which aren't available to MediaQueries clas
+
+		console.log "setupInfoDims : =>", contentOffset, requiresOverflow
+
+		if requiresOverflow
+
+			top       = @MIN_PADDING_TOP
+			maxHeight = @CD_CE().appView.dims.h - @MIN_PADDING_TOP - @MIN_PADDING_BOTTOM
+
+			@_setupInfoWithOverflow top, maxHeight
+
+		else
+
+			@_setupInfoWithoutOverflow()
+
+		null
+
+	_setupInfoWithOverflow : (top, maxHeight) =>
+
+		@$doodleInfoContent.addClass('enable-overflow').css({ top: top })
+			.find('.doodle-info-inner').css({ maxHeight: maxHeight })
+
+		$infoContentInner = @$doodleInfoContent.find('.doodle-info-inner')
+
+		if !Modernizr.touch
+
+			iScrollOpts = 
+				mouseWheel            : true
+				scrollbars            : true
+				interactiveScrollbars : true
+				fadeScrollbars        : true
+				momentum              : false
+				bounce                : false
+				preventDefault        : false
+
+			if @infoScroller
+				@infoScroller.refresh()
+			else
+				@infoScroller = new IScroll $infoContentInner[0], iScrollOpts
+
+		null
+
+	_setupInfoWithoutOverflow : =>
+
+		@$doodleInfoContent.removeClass('enable-overflow').css({ top: '' })
+			.find('.doodle-info-inner').css({ maxHeight: '' })
+
+		@infoScroller?.destroy()
+		@infoScroller = null
 
 		null
 
@@ -169,6 +243,8 @@ class DoodlePageView extends AbstractViewPage
 
 	onInfoOpen : =>
 
+		@setupInfoDims()
+
 		@$el.addClass('show-info')
 
 		null
@@ -176,6 +252,11 @@ class DoodlePageView extends AbstractViewPage
 	onInfoClose : =>
 
 		@$el.removeClass('show-info')
+
+		setTimeout =>
+			@infoScroller?.destroy()
+			@infoScroller = null
+		, 500
 
 		null
 
