@@ -1,6 +1,6 @@
 window.config = {
 	GA_code     : "",
-	API_HOST    : "http://develop.codedoodl.es",
+	API_HOST    : "http://codedoodl.es",
 	SITE_URL    : "http://codedoodl.es",
 	assets_url  : "http://assets.codedoodl.es",
 	doodles_url : "http://source.codedoodl.es",
