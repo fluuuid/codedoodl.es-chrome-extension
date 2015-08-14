@@ -15,6 +15,8 @@ class ShowAppsBtn extends AbstractView
 
     init : =>
 
+        return unless @CD_CE().appData.activeDoodle
+
         @activeColour = if @CD_CE().appData.activeDoodle.get('colour_scheme') is 'light' then 'black' else 'white'
 
         CodeWordTransitioner.prepare @$el, @activeColour

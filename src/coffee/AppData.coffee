@@ -25,6 +25,8 @@ class AppData extends AbstractData
 
     checkDoodleCache : =>
 
+        return unless chrome.storage.sync
+
         chrome.storage.sync.get null, (cachedData) =>
 
             if _.isEmpty cachedData
