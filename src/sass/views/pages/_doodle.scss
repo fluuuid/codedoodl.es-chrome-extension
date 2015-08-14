@@ -36,6 +36,10 @@
                 fill: $cd-black
             }
         }
+
+        .show-doodle-btn-pane {
+            background: $bg-offwhite;
+        }
     }
 
     &[data-color-scheme="dark"] {
@@ -548,6 +552,41 @@
 
         .index-char-zero {
             font-family: $ff-monosten-b;
+        }
+    }
+
+    .show-doodle-btn-pane {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 10;
+        background: $cd-black;
+        transition: all .5s $easeInOutExpo;
+
+        .show-doodle-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            @include font-size(1.5);
+            display: inline-block;
+            text-decoration: none;
+            letter-spacing: 0.6px;
+            font-family: $ff-monosten-a;
+            max-width: 70%;
+            text-align: center;
+        }
+
+        &.show {
+            display: block;
+        }
+
+        &.hide {
+            opacity: 0;
+            visibility: hidden;
         }
     }
 

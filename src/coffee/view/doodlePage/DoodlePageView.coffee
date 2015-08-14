@@ -34,6 +34,9 @@ class DoodlePageView extends AbstractViewPage
 		@$refreshBtn = @$el.find('[data-doodle-refresh]')
 		@$randomBtn  = @$el.find('[data-doodle-random]')
 
+		@$showDoodleBtnPane = @$el.find('[data-show-doodle-btn-pane]')
+		@$showDoodleBtn = @$el.find('[data-show-doodle-btn]')
+
 		null
 
 	setListeners : (setting) =>
@@ -65,7 +68,10 @@ class DoodlePageView extends AbstractViewPage
 
 		super
 
-		@showFrame false
+		if @CD_CE().appData.OPTIONS.autoplay
+			@showFrame false
+		else
+			@showShowDoodleBtn()
 
 		null
 
@@ -305,6 +311,49 @@ class DoodlePageView extends AbstractViewPage
 	onRandomBtnClick : =>
 
 		window.location.reload()
+
+		null
+
+	showShowDoodleBtn : =>
+
+		@$showDoodleBtn.text 'show `' + @model.get('author.name') + ' \\ ' + @model.get('name') + '`'
+
+		@$showDoodleBtnPane.addClass('show')
+		@showDoodleBtnColour = if @model.get('colour_scheme') is 'light' then 'black' else 'white'
+
+		CodeWordTransitioner.prepare @$showDoodleBtn, @showDoodleBtnColour
+
+		@$showDoodleBtn.on 'mouseenter', @onShowDoodleBtnEnter
+		@$showDoodleBtn.on 'mouseleave', @onShowDoodleBtnLeave
+		@$showDoodleBtn.on 'click', @onShowDoodleBtnClick
+
+		null
+
+	onShowDoodleBtnEnter : (e) =>
+
+		CodeWordTransitioner.scramble @$showDoodleBtn, @showDoodleBtnColour
+
+		null
+
+	onShowDoodleBtnLeave : (e) =>
+
+		CodeWordTransitioner.unscramble @$showDoodleBtn, @showDoodleBtnColour
+
+		null
+
+	onShowDoodleBtnClick : =>
+
+		@$showDoodleBtn.off 'mouseenter', @onShowDoodleBtnEnter
+		@$showDoodleBtn.off 'mouseleave', @onShowDoodleBtnLeave
+
+		emptyBtnText = @$showDoodleBtn.text().split('').map(-> return ' ').join('')
+		CodeWordTransitioner.to emptyBtnText, @$showDoodleBtn, @showDoodleBtnColour + '-no-border'
+
+		@$showDoodleBtnPane.addClass('hide')
+
+		setTimeout =>
+			@showFrame false
+		, 300
 
 		null
 

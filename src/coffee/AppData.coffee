@@ -9,6 +9,10 @@ class AppData extends AbstractData
 
     DOODLE_CACHE_DURATION : (((1000 * 60) * 60) * 24) # 24hrs
 
+    OPTIONS :
+        autoplay      : true
+        show_apps_btn : false
+
     constructor : (@callback) ->
 
         super()
@@ -26,8 +30,12 @@ class AppData extends AbstractData
             if _.isEmpty cachedData
                 return @fetchDoodles()
 
+            @checkOptions cachedData
+
             cachedDoodles = []
-            (if index isnt 'lastUpdated' then cachedDoodles.push(JSON.parse(data))) for index, data of cachedData
+            for index, data of cachedData
+                if index isnt 'lastUpdated' and !index.match(/^option_/)
+                    cachedDoodles.push(JSON.parse(data))
 
             if ((Date.now() - cachedData.lastUpdated) > @DOODLE_CACHE_DURATION)
                 @fetchDoodles cachedDoodles
@@ -82,12 +90,20 @@ class AppData extends AbstractData
 
     updateCache : =>
 
-        chrome.storage.sync.clear =>
+        newCache = lastUpdated : Date.now()
+        (newCache[position] = JSON.stringify doodle) for doodle, position in @doodles.models
 
-            newCache = lastUpdated : Date.now()
-            (newCache[position] = JSON.stringify doodle) for doodle, position in @doodles.models
+        chrome.storage.sync.set newCache
 
-            chrome.storage.sync.set newCache
+        null
+
+    checkOptions : (cachedData) =>
+
+        for index, data of cachedData
+
+            if index.match(/^option_/)
+
+                @OPTIONS[ index.replace(/^option_/, '') ] = data
 
         null
 

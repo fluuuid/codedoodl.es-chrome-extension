@@ -142,7 +142,10 @@ class Header extends AbstractView
 
 		return unless @CD_CE().nav.current.area is @CD_CE().nav.sections.HOME
 
-		if !@DOODLE_INFO_OPEN then @showDoodleInfo()
+		if !@DOODLE_INFO_OPEN
+			@showDoodleInfo()
+		else
+			@hideDoodleInfo()
 
 		null
 

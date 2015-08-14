@@ -53,8 +53,10 @@
 @import 'views/components/footer';
 @import 'views/components/pageTransitioner';
 @import 'views/components/arrows';
+@import 'views/components/showAppsBtn';
 
 // pages
 @import 'views/pages/base';
 @import 'views/pages/aboutContributeInfo';
 @import 'views/pages/doodle';
+@import 'views/pages/options';

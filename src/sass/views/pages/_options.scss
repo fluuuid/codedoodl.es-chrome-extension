@@ -1,0 +1,52 @@
+.page-options {
+	background: $bg-offwhite;
+
+	.page-content {
+		padding: 100px;
+		font-family: $ff-monosten-a;
+		@include font-size(1.3);
+		line-height: 1.5;
+
+		.logo-link {
+			display: inline-block;
+			margin-bottom: 20px;
+		}
+
+		.logo {
+			float: left;
+			width: 200px;
+			margin-left: -17px;
+		}
+
+		.options {
+			margin: 40px 0 70px;
+		}
+
+		p {
+			margin: 5px 0 15px;
+
+			a {
+				color: #000;
+				text-decoration: none;
+				border-bottom: 2px solid rgba(0, 0, 0, 0.5);
+				padding-bottom: 2px;
+
+				&:hover {
+					border-color: #000;
+				}
+			}
+		}
+
+		input[type="checkbox"] {
+			width: 15px;
+			height: 15px;
+			background: #fff;
+			-webkit-appearance: checkbox;
+			border: none;
+			border-radius: 0;
+			margin-left: 5px;
+			position: relative;
+			top: 3px;
+		}
+	}
+}

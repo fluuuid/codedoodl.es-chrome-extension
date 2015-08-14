@@ -21,5 +21,6 @@
       "16": "static/img/icons/icon-16.png",
       "48": "static/img/icons/icon-48.png"
    },
-   "incognito": "split"
+   "incognito": "split",
+   "options_page": "options.html"
 }

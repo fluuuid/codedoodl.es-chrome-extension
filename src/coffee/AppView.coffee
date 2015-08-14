@@ -3,6 +3,7 @@ Preloader    = require './view/base/Preloader'
 Header       = require './view/base/Header'
 Wrapper      = require './view/base/Wrapper'
 Footer       = require './view/base/Footer'
+ShowAppsBtn  = require './view/base/ShowAppsBtn'
 ModalManager = require './view/modals/_ModalManager'
 MediaQueries = require './utils/MediaQueries'
 
@@ -22,8 +23,8 @@ class AppView extends AbstractView
         o : null
         c : null
 
-    events :
-        'click a' : 'linkManager'
+    # events :
+    #     'click a' : 'linkManager'
 
     EVENT_UPDATE_DIMENSIONS : 'EVENT_UPDATE_DIMENSIONS'
 
@@ -73,6 +74,8 @@ class AppView extends AbstractView
             .addChild @header
             .addChild @wrapper
             .addChild @footer
+
+        @checkOptions()
 
         @onAllRendered()
 
@@ -162,5 +165,14 @@ class AppView extends AbstractView
         ###
 
         return
+
+    checkOptions : =>
+
+        if @CD_CE().appData.OPTIONS.show_apps_btn
+
+            @showAppsBtn = new ShowAppsBtn
+            @addChild @showAppsBtn
+
+        null
 
 module.exports = AppView

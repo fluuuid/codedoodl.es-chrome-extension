@@ -1,0 +1,14 @@
+.show-apps-btn {
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    @include font-size(1.5);
+    display: inline-block;
+    text-decoration: none;
+    letter-spacing: 0.6px;
+    font-family: $ff-monosten-a;
+    max-width: 70%;
+    text-align: center;
+    z-index: 20;
+    transform: translate(-50%, 0) rotate(90deg);
+}
