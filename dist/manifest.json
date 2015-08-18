@@ -1,7 +1,7 @@
 {
    "manifest_version": 2,
    "name": "codedoodl.es",
-   "version": "0.0.3",
+   "version": "0.0.4",
    "permissions": [
       "http://codedoodl.es",
       "storage"
